@@ -92,69 +92,11 @@ public class Crawler {
             case "rood": return "Red";
             case "zilver": return "Silver";
             case "bruin": return "Brown";
-            case "paars": return "purple";
+            case "paars": return "Purple";
             case "goud": return "Gold";
             case "oranje": return "Orange";
             default: return s;
         }
-    }
-
-    public ArrayList<String> getCarData(String kenteken) throws IOException {
-        ArrayList<String> data = new ArrayList<>();
-        String result = "";
-
-        String url = "https://www.rdwdata.nl/kenteken/" + kenteken;
-
-        try {
-
-            URL url_object = new URL(url);
-
-            // read text returned by server
-            BufferedReader in = new BufferedReader(new InputStreamReader(url_object.openStream()));
-
-            String line;
-            int hpcounter = Integer.MAX_VALUE;
-            int yearcounter = Integer.MAX_VALUE;
-            int colorcounter = Integer.MAX_VALUE;
-
-            while ((line = in.readLine()) != null) {
-                if (hpcounter == 0){
-                    data.add(parseHp(line));
-                }
-                if (yearcounter == 0){
-                    data.add(parseYear(line));
-                }
-                if (colorcounter == 0){
-                    data.add(parseColor(line));
-                }
-                if (line.contains("merk")) {
-                    data.add(clean(line));
-//                        result = result + clean(line) + " ";
-                }
-                if (line.contains("<td><span rdw-highlight-target=\"catalogusprijs\">")){
-                    data.add(parsePrice(line));
-                }
-                if (line.contains("<td>Vermogen</td>")){
-                    hpcounter = 2;
-                }
-                if (line.contains("<td width=\"300\">Kleur</td>")){
-                    colorcounter = 2;
-                }
-                if (line.contains("<td>Bouwjaar</td>")){
-                    yearcounter = 2;
-                }
-                hpcounter--;
-                yearcounter--;
-                colorcounter--;
-            }
-            in.close();
-
-        } catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("I/O Error: " + e.getMessage());
-        }
-        return data;
     }
 
     public ArrayList<String> getCarDataFast(String kenteken) throws IOException {
