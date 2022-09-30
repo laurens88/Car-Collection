@@ -20,67 +20,6 @@ public class Crawler {
     public Crawler(){
     }
 
-    public String clean(String s){
-        String clean_s = "";
-        int counter = 0;
-        for(int i = 0; i<s.length(); i++) {
-            if (s.charAt(i) == '>') {
-                counter++;
-                continue;
-            }
-            if (counter == 2) {
-                if (s.charAt(i) == '<') {
-                    return clean_s;
-                } else {
-                    clean_s = clean_s + s.charAt(i);
-                }
-            }
-        }
-        return clean_s;
-    }
-
-    public String parsePrice(String s){
-        if (s.contains("onbekend")){
-            return "Unknown";
-        }
-        String price = "";
-        for(int i = 83; i < s.length()-12; i++){
-            price += s.charAt(i);
-        }
-        return "€"+price;
-    }
-
-    public String parseHp(String s){
-        if (s.contains("onbekend")){
-            return "N/A";
-        }
-        String hp = "";
-        for(int i = 32; i<s.length()-5; i++){
-            hp += s.charAt(i);
-        }
-        hp = hp.replaceAll("pk", "hp");
-        return hp;
-    }
-
-    public String parseYear(String s){
-        String year = "";
-        for(int i = 32; i<s.length()-5; i++){
-            year += s.charAt(i);
-        }
-        return year;
-    }
-
-    public String parseColor(String s){
-        if (s.contains("N.v.t")){
-            return "Unknown";
-        }
-        String color = "";
-        for (int i = 36; i<s.length()-5; i++){
-            color += s.charAt(i);
-        }
-        return translate_color(color);
-    }
-
     public String translate_color(String s){
         switch (s.toLowerCase()){
             case "zwart": return "Black";
