@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_pager);
         viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager2.setAdapter(viewPagerAdapter);
+//        getSupportActionBar().hide();
 
 
 

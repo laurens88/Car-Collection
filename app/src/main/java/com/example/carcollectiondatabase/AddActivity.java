@@ -96,20 +96,6 @@ public class AddActivity extends AppCompatActivity {
                 }
             }
         });
-        String plates = "8ZPT48XX456G74HSX1XD306LKH726V73JNZ1RH441FXK271PPS734PRJ452JRL963N02HJL447ZPP2V896FHV080BRRD735SN791BJSR561JJ258HNXG271S63PFZ5P389SV17ZRF7G417ZSXB662D60PBV1PJ389PXT566K28PGVKR822GNN061ZXP098VZJ739LNV636ZBJ748HGZJ753RN628BGL916NLP519RHK124GBN395VT9ZNK49ZF729FG675GKK243XSG233HRTD550ZL776SZ41SFRFTH471TPT276LV272SBN036GHXT345TTX817NV960GRH487RGRK309JH589SVPT390PKG030LG343VSP973JNVJK61NK178JKPT578BXZ085NH629BVXX041ZXS504FRX788RN741KKPX411JSB038HG174ZLTT345VNJ341JG635HNJ432FDL477FGHH061LG164TNH721BKVLS61GHH936ZV301DKTH190FPG734F";
-        System.out.println(plates.length());
-        DatabaseHelper dbhelper = new DatabaseHelper(AddActivity.this);
-        for (int i = 0; i<plates.length(); i=i+6 ){
-            String plate = plates.substring(i, i+6);
-            if (plate.equals("G417ZS")){
-                dbhelper.addCarManually("New Holland", "T7230");
-                dbhelper.addCarManually("New Holland", "T650");
-            }
-            try {
-                dbhelper.addCarPlate(plate, "car");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 }

@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_BRAND = "car_brand";
     private static final String COLUMN_TYPE = "car_type";
+    private static final String COLUMN_EDITION = "car_edition";
     private static final String COLUMN_PRICE = "car_price";
     private static final String COLUMN_HP = "car_hp";
     private static final String COLUMN_COLOR = "car_color";
@@ -31,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_COUNT = "car_count";
     private static final String COLUMN_ACCELERATION = "car_acceleration";
     private static final String COLUMN_TOPSPEED = "car_topspeed";
+    private static final String COLUMN_RANK = "car_rank";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_BRAND + " TEXT, " +
                         COLUMN_TYPE + " TEXT, " +
+                        COLUMN_EDITION + " TEXT, " +
                         COLUMN_PRICE + " TEXT, " +
                         COLUMN_HP + " TEXT, " +
                         COLUMN_COLOR + " TEXT, " +
@@ -51,7 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_PLATE + " TEXT, " +
                         COLUMN_COUNT + " TEXT, " +
                         COLUMN_ACCELERATION + " TEXT, " +
-                        COLUMN_TOPSPEED + " TEXT);";
+                        COLUMN_TOPSPEED + " TEXT, " +
+                        COLUMN_RANK + " TEXT);";
         db.execSQL(query);
     }
 
@@ -88,9 +92,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<String> car_data = c.getCarData3(plate);
 
         cv.put(COLUMN_BRAND, car_data.get(0));
-        if (vehicleType.equals("car")){
-        cv.put(COLUMN_TYPE, car_data.get(1).toUpperCase().replaceAll(car_data.get(0)+" ".toUpperCase(), "")
-                .replaceAll("MCLAREN ", ""));}
+        if (vehicleType.equals("car")) {
+            cv.put(COLUMN_TYPE, car_data.get(1).toUpperCase().replaceAll(car_data.get(0) + " ".toUpperCase(), "")
+                    .replaceAll("MCLAREN ", ""));
+            cv.put(COLUMN_EDITION, car_data.get(2));
+        }
         else{
             cv.put(COLUMN_TYPE, car_data.get(2));
         }
@@ -102,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_COUNT, "placeholder");
         cv.put(COLUMN_ACCELERATION, car_data.get(5));
         cv.put(COLUMN_TOPSPEED, car_data.get(6));
+        cv.put(COLUMN_RANK, car_data.get(9));
 
         long result = db.insert(TABLE_NAME, null, cv);
         if(result == -1){
@@ -120,14 +127,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void updataData(String row_id, String brand, String type, String plate, String price,
-                    String power, String color, String year, String acceleration, String topspeed){
+    void updataData(String row_id, String brand, String type, String edition, String plate, String price,
+                    String power, String color, String year, String acceleration, String topspeed, String rank){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         if(plate.equals("") || plate.equals("null")) {
             cv.put(COLUMN_BRAND, brand);
             cv.put(COLUMN_TYPE, type);
+            cv.put(COLUMN_EDITION, edition);
             cv.put(COLUMN_PRICE, price);
             cv.put(COLUMN_HP, power);
             cv.put(COLUMN_COLOR, color);
@@ -136,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put(COLUMN_PLATE, "");
             cv.put(COLUMN_ACCELERATION, acceleration);
             cv.put(COLUMN_TOPSPEED, topspeed);
+            cv.put(COLUMN_RANK, rank);
         }else{
             Crawler c = new Crawler();
             try {
@@ -150,7 +159,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cv.put(COLUMN_BRAND, car_data.get(0));
                     if (data.get(0).equals("car")){
                     cv.put(COLUMN_TYPE, car_data.get(1).toUpperCase().replaceAll(car_data.get(0)+" ".toUpperCase(), "")
-                            .replaceAll("MCLAREN ", ""));}
+                            .replaceAll("MCLAREN ", ""));
+                    cv.put(COLUMN_EDITION, car_data.get(2));
+                    }
                     else{
                         cv.put(COLUMN_TYPE, car_data.get(2));
                     }
@@ -162,6 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cv.put(COLUMN_COUNT, "placeholder");
                     cv.put(COLUMN_ACCELERATION, car_data.get(5));
                     cv.put(COLUMN_TOPSPEED, car_data.get(6));
+                    cv.put(COLUMN_RANK, car_data.get(9));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -187,15 +199,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor search(String brand){
-        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_BRAND+" = ?";
+    public Cursor search(String term){
+        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_BRAND+" = ? or "+COLUMN_TYPE+" = ?";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
         if(db != null){
-            cursor = db.rawQuery(query, new String[]{brand});
+            cursor = db.rawQuery(query, new String[]{term});
         }
-        db.close();
         return cursor;
     }
 
@@ -240,6 +251,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return cursorString;
+    }
+
+    public void addList() {
+        String plates = "8ZPT48XX456G74HSX1XD306LKH726V73JNZ1RH441FXK271PPS734PRJ452JRL963N02HJL447ZPP2V896FHV080BRRD735SN791BJSR561JJ258HNXG271S63PFZ5P389SV17ZRF7G417ZSXB662D60PBV1PJ389PXT566K28PGVKR822GNN061ZXP098VZJ739LNV636ZBJ748HGZJ753RN628BGL916NLP519RHK124GBN395VT9ZNK49ZF729FG675GKK243XSG233HRTD550ZL776SZ41SFRFTH471TPT276LV272SBN036GHXT345TTX817NV960GRH487RGRK309JH589SVPT390PKG030LG343VSP973JNVJK61NK178JKPT578BXZ085NH629BVXX041ZXS504FRX788RN741KKPX411JSB038HG174ZLTT345VNJ341JG635HNJ432FDL477FGHH061LG164TNH721BKVLS61GHH936ZV301DKTH190FPG734F";
+        for (int i = 0; i < plates.length(); i = i + 6) {
+            String plate = plates.substring(i, i + 6);
+            if (!getPlates().contains(plate)) {
+                if (plate.equals("G417ZS")) {
+                    addCarManually("New Holland", "T7230");
+                    addCarManually("New Holland", "T650");
+                }
+                try {
+                    addCarPlate(plate, "car");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

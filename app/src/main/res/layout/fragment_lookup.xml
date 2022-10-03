@@ -28,12 +28,22 @@
         android:textColor="@color/white"
         android:layout_below="@+id/brand" />
 
+    <TextView
+        android:id="@+id/edition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_below="@+id/type" />
+
 
     <TextView
         android:id="@+id/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/type"
+        android:layout_below="@+id/edition"
         android:text="Price: "
         android:textSize="20dp"
         android:textStyle="bold"

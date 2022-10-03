@@ -50,7 +50,7 @@ public class lookupFragment extends Fragment {
 
         TextView data_brand = (TextView) view.findViewById(R.id.brand);
         TextView data_type = (TextView) view.findViewById(R.id.type);
-//        TextView edition = (TextView) view.findViewById(R.id.edition);
+        TextView edition = (TextView) view.findViewById(R.id.edition);
         TextView price = (TextView) view.findViewById(R.id.price);
         TextView horsepower = (TextView) view.findViewById(R.id.horsepower);
         TextView year = (TextView) view.findViewById(R.id.year);
@@ -84,7 +84,7 @@ public class lookupFragment extends Fragment {
                             data_brand.setText(data.get(0));
                             if (car_data.get(0).equals("car")) {
                                 data_type.setText(data.get(1));
-                                //edition.setText(data.get(2));
+                                edition.setText(data.get(2));
                             } else {
                                 data_type.setText(data.get(2));
                             }
@@ -102,7 +102,7 @@ public class lookupFragment extends Fragment {
                         Toast.makeText(getContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
                         data_brand.setText("Brand");
                         data_type.setText("Type");
-//                        edition.setText("Edition: ");
+                        edition.setText("");
                         price.setText("Price: ");
                         horsepower.setText("Power: ");
                         year.setText("Year: ");

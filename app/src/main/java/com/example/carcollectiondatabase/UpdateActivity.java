@@ -31,11 +31,11 @@ import java.util.ArrayList;
 
 public class UpdateActivity extends AppCompatActivity {
 
-    EditText brand_input, type_input, plate_input, price_input, power_input, color_input,
-            year_input, acceleration_input, topspeed_input;
+    EditText brand_input, type_input, edition_input, plate_input, price_input, power_input, color_input,
+            year_input, acceleration_input, topspeed_input, rank_input;
     Button update_button, cancel_button;
 
-    String id, brand, type, plate, price, power, color, year, acceleration, topspeed;
+    String id, brand, type, edition, plate, price, power, color, year, acceleration, topspeed, rank;
 
     ActionBar ab;
 
@@ -48,6 +48,8 @@ public class UpdateActivity extends AppCompatActivity {
         brand_input.setFocusable(false);
         type_input = findViewById(R.id.editType2);
         type_input.setFocusable(false);
+        edition_input = findViewById(R.id.editEdition);
+        edition_input.setFocusable(false);
         plate_input = findViewById(R.id.editPlate2);
         plate_input.setFocusable(false);
         price_input = findViewById(R.id.editPrice2);
@@ -62,6 +64,8 @@ public class UpdateActivity extends AppCompatActivity {
         acceleration_input.setFocusable(false);
         topspeed_input = findViewById(R.id.editTopspeed);
         topspeed_input.setFocusable(false);
+        rank_input = findViewById(R.id.editRanking);
+        rank_input.setFocusable(false);
 
         update_button = findViewById(R.id.update_entry);
         cancel_button = findViewById(R.id.cancel_button);
@@ -96,6 +100,7 @@ public class UpdateActivity extends AppCompatActivity {
                 DatabaseHelper dbheper = new DatabaseHelper(UpdateActivity.this);
                 brand = brand_input.getText().toString().trim();
                 type = type_input.getText().toString().trim();
+                edition = edition_input.getText().toString().trim();
                 plate = plate_input.getText().toString().trim();
                 price = price_input.getText().toString().trim();
                 power = power_input.getText().toString().trim();
@@ -103,10 +108,11 @@ public class UpdateActivity extends AppCompatActivity {
                 year = year_input.getText().toString().trim();
                 acceleration = acceleration_input.getText().toString().trim();
                 topspeed = topspeed_input.getText().toString().trim();
+                rank = rank_input.getText().toString().trim();
 
 
-                dbheper.updataData(id, brand, type, plate, price, power, color, year, acceleration,
-                topspeed);
+                dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
+                topspeed, rank);
 
                 Intent intent = new Intent(getBaseContext(), ListFragment.class);
                 startActivity(intent);
@@ -130,6 +136,13 @@ public class UpdateActivity extends AppCompatActivity {
                 type_input.setFocusableInTouchMode(false);
                 type_input.clearFocus();
                 type_input.setText(type);
+                edition_input.setFocusableInTouchMode(false);
+                edition_input.clearFocus();
+                if (edition.equals("null")){
+                    edition_input.setText("");
+                }else {
+                    edition_input.setText(edition);
+                }
                 price_input.setFocusableInTouchMode(false);
                 price_input.clearFocus();
                 price_input.setText(price);
@@ -138,16 +151,31 @@ public class UpdateActivity extends AppCompatActivity {
                 power_input.setText(power);
                 color_input.setFocusableInTouchMode(false);
                 color_input.clearFocus();
+                if (color.equals("Unknown")){
+                    color_input.setText("");
+                }else{
                 color_input.setText(color);
+                }
                 year_input.setFocusableInTouchMode(false);
                 year_input.clearFocus();
                 year_input.setText(year);
                 acceleration_input.setFocusableInTouchMode(false);
                 acceleration_input.clearFocus();
-                acceleration_input.setText(acceleration);
+                if (acceleration.equals("Unknown")){
+                    acceleration_input.setText("");
+                }else{
+                    acceleration_input.setText(acceleration);
+                }
                 topspeed_input.setFocusableInTouchMode(false);
                 topspeed_input.clearFocus();
-                topspeed_input.setText(topspeed);
+                if (topspeed.equals("Unknown")){
+                    topspeed_input.setText("");
+                }else{
+                    topspeed_input.setText(topspeed);
+                }
+                rank_input.setFocusableInTouchMode(false);
+                rank_input.clearFocus();
+                rank_input.setText(rank);
                 plate_input.setFocusableInTouchMode(false);
                 plate_input.clearFocus();
                 plate_input.setText(plate);
@@ -159,13 +187,15 @@ public class UpdateActivity extends AppCompatActivity {
 
     void getAndSetData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("brand")
-                && getIntent().hasExtra("type") && getIntent().hasExtra("price")
+                && getIntent().hasExtra("type") && getIntent().hasExtra("edition") && getIntent().hasExtra("price")
                 && getIntent().hasExtra("power") && getIntent().hasExtra("color")
                 && getIntent().hasExtra("year") && getIntent().hasExtra("plate")
-                && getIntent().hasExtra("acceleration") && getIntent().hasExtra("topspeed")){
+                && getIntent().hasExtra("acceleration") && getIntent().hasExtra("topspeed")
+                && getIntent().hasExtra("rank")){
             id = getIntent().getStringExtra("id");
             brand = getIntent().getStringExtra("brand");
             type = getIntent().getStringExtra("type");
+            edition = getIntent().getStringExtra("edition");
             price = getIntent().getStringExtra("price");
             power = getIntent().getStringExtra("power");
             color = getIntent().getStringExtra("color");
@@ -173,9 +203,16 @@ public class UpdateActivity extends AppCompatActivity {
             plate = getIntent().getStringExtra("plate");
             acceleration = getIntent().getStringExtra("acceleration");
             topspeed = getIntent().getStringExtra("topspeed");
+            rank = getIntent().getStringExtra("rank");
 
             brand_input.setText(brand);
             type_input.setText(type);
+            if (edition.equals("null")){
+                edition_input.setText("");
+            }else{
+                edition_input.setText(edition);
+            }
+
             if (plate.equals("null")){
                 plate_input.setText("");
             }else{
@@ -196,16 +233,17 @@ public class UpdateActivity extends AppCompatActivity {
                 year_input.setText("");
             }else{
                 year_input.setText(year);}
-            if (acceleration.equals("null")){
+            if (acceleration.equals("null") || acceleration.equals("Unknown")){
                 acceleration_input.setText("");
             }else{
                 acceleration_input.setText(acceleration);
             }
-            if (topspeed.equals("null")){
+            if (topspeed.equals("null") || topspeed.equals("Unknown")){
                 topspeed_input.setText("");
             }else{
                 topspeed_input.setText(topspeed);
             }
+            rank_input.setText(rank);
 
             InputFilter[] filterArray = new InputFilter[2];
             filterArray[0] = new InputFilter.AllCaps();
@@ -257,12 +295,14 @@ public class UpdateActivity extends AppCompatActivity {
                 cancel_button.setVisibility(View.VISIBLE);
                 brand_input.setFocusableInTouchMode(true);
                 type_input.setFocusableInTouchMode(true);
+                edition_input.setFocusableInTouchMode(true);
                 price_input.setFocusableInTouchMode(true);
                 power_input.setFocusableInTouchMode(true);
                 color_input.setFocusableInTouchMode(true);
                 year_input.setFocusableInTouchMode(true);
                 acceleration_input.setFocusableInTouchMode(true);
                 topspeed_input.setFocusableInTouchMode(true);
+                rank_input.setFocusableInTouchMode(true);
                 plate_input.setFocusableInTouchMode(true);
                 ab.setTitle("Update " + brand);
             }

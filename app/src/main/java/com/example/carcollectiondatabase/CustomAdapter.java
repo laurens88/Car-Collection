@@ -19,13 +19,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context context;
     Activity activity;
-    private ArrayList car_id, brand, type, plate, count, price, power, color, year, acceleration, topspeed;
+    private ArrayList car_id, brand, type, edition, plate, count, price, power, color, year,
+            acceleration, topspeed, rank;
 
 
     public CustomAdapter(Activity activity, Context context,
                          ArrayList car_id,
                          ArrayList brand,
                          ArrayList type,
+                         ArrayList edition,
                          ArrayList plate,
                          ArrayList count,
                          ArrayList price,
@@ -33,12 +35,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                          ArrayList color,
                          ArrayList year,
                          ArrayList acceleration,
-                         ArrayList topspeed){
+                         ArrayList topspeed,
+                         ArrayList rank){
         this.activity = activity;
         this.car_id = car_id;
         this.context = context;
         this.brand = brand;
         this.type = type;
+        this.edition = edition;
         this.plate = plate;
         this.count = count;
         this.price = price;
@@ -47,6 +51,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.year = year;
         this.acceleration = acceleration;
         this.topspeed = topspeed;
+        this.rank = rank;
     }
 
     @NonNull
@@ -69,6 +74,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("id", String.valueOf(car_id.get(position)));
                 intent.putExtra("brand", String.valueOf(brand.get(position)));
                 intent.putExtra("type", String.valueOf(type.get(position)));
+                intent.putExtra("edition", String.valueOf(edition.get(position)));
                 intent.putExtra("plate", String.valueOf(plate.get(position)));
                 intent.putExtra("price", String.valueOf(price.get(position)));
                 intent.putExtra("power", String.valueOf(power.get(position)));
@@ -76,6 +82,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("year", String.valueOf(year.get(position)));
                 intent.putExtra("acceleration", String.valueOf(acceleration.get(position)));
                 intent.putExtra("topspeed", String.valueOf(topspeed.get(position)));
+                intent.putExtra("rank", String.valueOf(rank.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });
