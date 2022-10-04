@@ -8,147 +8,147 @@
     android:layout_below="@+id/tab_layout"
     android:background="@drawable/background">
 
-    <TextView
-        android:id="@+id/brand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Brand"
-        android:textSize="42dp"
-        android:textStyle="bold"
-        android:textColor="@color/white" />
+<!--    <TextView-->
+<!--        android:id="@+id/brand"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Brand"-->
+<!--        android:textSize="42dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white" />-->
 
-
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_below="@+id/brand" />
-
-    <TextView
-        android:id="@+id/edition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_below="@+id/type" />
-
-
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edition"
-        android:text="Price: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
-
-
-    <TextView
-        android:id="@+id/horsepower"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/price"
-        android:text="Power: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
 
 <!--    <TextView-->
-<!--        android:id="@+id/color_text"-->
-<!--        android:layout_width="wrap_content"-->
+<!--        android:id="@+id/type"-->
+<!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/power_text"-->
+<!--        android:text="Type"-->
+<!--        android:textSize="32dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_below="@+id/brand" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/edition"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text=""-->
+<!--        android:textSize="24dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_below="@+id/type" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/price"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/edition"-->
+<!--        android:text="Price: "-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"/>-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/horsepower"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/price"-->
+<!--        android:text="Power: "-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"/>-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:id="@+id/color_text"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_below="@+id/power_text"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:text="Color: "&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textSize="28dp" />&ndash;&gt;-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/color"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/horsepower"-->
 <!--        android:text="Color: "-->
-<!--        android:textSize="28dp" />-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white" />-->
 
-    <TextView
-        android:id="@+id/color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/horsepower"
-        android:text="Color: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white" />
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:id="@+id/year_text"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_below="@+id/color_text"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:text="Year: "&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textSize="28dp" />&ndash;&gt;-->
 
 <!--    <TextView-->
-<!--        android:id="@+id/year_text"-->
-<!--        android:layout_width="wrap_content"-->
+<!--        android:id="@+id/year"-->
+<!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/color_text"-->
+<!--        android:layout_below="@id/color"-->
 <!--        android:text="Year: "-->
-<!--        android:textSize="28dp" />-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/color"
-        android:text="Year: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/acceleration"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/year"-->
+<!--        android:text="0-100: "-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/acceleration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/year"
-        android:text="0-100: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/topspeed"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/acceleration"-->
+<!--        android:text="Top speed: "-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/topspeed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/acceleration"
-        android:text="Top speed: "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        />
-
-    <TextView
-        android:id="@+id/ranking"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topspeed"
-        android:textStyle="bold"
-        android:text="Ranking:"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/ranking"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/topspeed"-->
+<!--        android:textStyle="bold"-->
+<!--        android:text="Ranking:"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
 
 
     <EditText
         android:id="@+id/editplate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginLeft="90dp"
-        android:hint="License plate"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:hint="License plate"
+        android:textSize="32dp" />
 
     <Button
         android:id="@+id/lookupbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:text="Lookup"
         android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/editplate"
-        android:backgroundTint="@color/teal_200"/>
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/editplate"
+        android:backgroundTint="@color/teal_200"
+        android:text="Lookup" />
 
 
 

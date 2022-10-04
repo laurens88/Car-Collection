@@ -51,16 +51,16 @@ public class lookupFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        TextView data_brand = (TextView) view.findViewById(R.id.brand);
-        TextView data_type = (TextView) view.findViewById(R.id.type);
-        TextView edition = (TextView) view.findViewById(R.id.edition);
-        TextView price = (TextView) view.findViewById(R.id.price);
-        TextView horsepower = (TextView) view.findViewById(R.id.horsepower);
-        TextView year = (TextView) view.findViewById(R.id.year);
-        TextView color = (TextView) view.findViewById(R.id.color);
-        TextView acceleration = (TextView) view.findViewById(R.id.acceleration);
-        TextView topspeed = (TextView) view.findViewById(R.id.topspeed);
-        TextView ranking = (TextView) view.findViewById(R.id.ranking);
+//        TextView data_brand = (TextView) view.findViewById(R.id.brand);
+//        TextView data_type = (TextView) view.findViewById(R.id.type);
+//        TextView edition = (TextView) view.findViewById(R.id.edition);
+//        TextView price = (TextView) view.findViewById(R.id.price);
+//        TextView horsepower = (TextView) view.findViewById(R.id.horsepower);
+//        TextView year = (TextView) view.findViewById(R.id.year);
+//        TextView color = (TextView) view.findViewById(R.id.color);
+//        TextView acceleration = (TextView) view.findViewById(R.id.acceleration);
+//        TextView topspeed = (TextView) view.findViewById(R.id.topspeed);
+//        TextView ranking = (TextView) view.findViewById(R.id.ranking);
         EditText plate = (EditText) view.findViewById(R.id.editplate);
         InputFilter[] filterArray = new InputFilter[2];
         filterArray[0] = new InputFilter.AllCaps();
@@ -96,38 +96,39 @@ public class lookupFragment extends Fragment {
                         intent.putExtra("acceleration", data.get(5));
                         intent.putExtra("topspeed", data.get(6));
                         intent.putExtra("rank", data.get(9));
+                        plate.setText("");
+                        plate.clearFocus();
                         getActivity().startActivityForResult(intent, 1);
-                        if (!data.isEmpty()) {
-                            data_brand.setText(data.get(0));
-                            if (car_data.get(0).equals("car")) {
-                                data_type.setText(data.get(1));
-                                edition.setText(data.get(2));
-                            } else {
-                                data_type.setText(data.get(2));
-                            }
-                            //hide edition textview?
-                            price.setText("Price: " + data.get(7));
-                            year.setText("Year: " + data.get(3));
-                            color.setText("Color: " + data.get(4));
-                            acceleration.setText("0-100: " + data.get(5));
-                            topspeed.setText("Top speed: " + data.get(6));
-                            horsepower.setText("Power: " + data.get(8));
-                            ranking.setText("Rank: "+ data.get(9) +" vehicles faster (NL)");
-                            plate.setText(formatPlate(String.valueOf(plate.getText())));
+//                        if (!data.isEmpty()) {
+//                            data_brand.setText(data.get(0));
+//                            if (car_data.get(0).equals("car")) {
+//                                data_type.setText(data.get(1));
+//                                edition.setText(data.get(2));
+//                            } else {
+//                                data_type.setText(data.get(2));
+//                            }
+//                            price.setText("Price: " + data.get(7));
+//                            year.setText("Year: " + data.get(3));
+//                            color.setText("Color: " + data.get(4));
+//                            acceleration.setText("0-100: " + data.get(5));
+//                            topspeed.setText("Top speed: " + data.get(6));
+//                            horsepower.setText("Power: " + data.get(8));
+//                            ranking.setText("Rank: "+ data.get(9) +" vehicles faster (NL)");
+//                            plate.setText(formatPlate(String.valueOf(plate.getText())));
 
-                        }
+//                        }
                     } else {
                         Toast.makeText(getContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
-                        data_brand.setText("Brand");
-                        data_type.setText("Type");
-                        edition.setText("");
-                        price.setText("Price: ");
-                        horsepower.setText("Power: ");
-                        year.setText("Year: ");
-                        color.setText("Color: ");
-                        acceleration.setText("0-100: ");
-                        topspeed.setText("Top speed: ");
-                        ranking.setText("Ranking: ");
+//                        data_brand.setText("Brand");
+//                        data_type.setText("Type");
+//                        edition.setText("");
+//                        price.setText("Price: ");
+//                        horsepower.setText("Power: ");
+//                        year.setText("Year: ");
+//                        color.setText("Color: ");
+//                        acceleration.setText("0-100: ");
+//                        topspeed.setText("Top speed: ");
+//                        ranking.setText("Ranking: ");
                     }
 
 
