@@ -200,12 +200,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor search(String term){
-        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_BRAND+" = ? or "+COLUMN_TYPE+" = ?";
+        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+"UPPER("+COLUMN_BRAND+") = ?";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
         if(db != null){
-            cursor = db.rawQuery(query, new String[]{term});
+            cursor = db.rawQuery(query, new String[]{term.toUpperCase()});
+            System.out.println("Search term: "+term);
+            System.out.println(cursorToString(cursor));
+        }
+        return cursor;
+    }
+
+    public Cursor searchType(String term){
+        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+"UPPER("+COLUMN_TYPE+") = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{term.toUpperCase()});
+            System.out.println("Search term: "+term);
+            System.out.println(cursorToString(cursor));
         }
         return cursor;
     }

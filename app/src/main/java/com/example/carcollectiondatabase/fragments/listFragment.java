@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -103,6 +104,12 @@ public class listFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        storeSearchData("", false);
+        super.onResume();
+    }
+
+    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
@@ -125,6 +132,7 @@ public class listFragment extends Fragment {
 
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 
     void storeDataInArrays(){
         Cursor cursor = dbhelper.readAllData();
@@ -159,7 +167,10 @@ public class listFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }else{
             Cursor cursor = dbhelper.search(searchTerm);
-        if(cursor.getCount() == 0){
+            Cursor cursorType = dbhelper.searchType(searchTerm);
+            Cursor cursors[] = new Cursor[]{cursor, cursorType};
+            MergeCursor mergeCursor = new MergeCursor(cursors);
+        if(mergeCursor.getCount() == 0){
             car_id2.clear();
             brand2.clear();
             type2.clear();
@@ -191,20 +202,20 @@ public class listFragment extends Fragment {
                 acceleration2.clear();
                 topspeed2.clear();
                 rank2.clear();
-                while (cursor.moveToNext()) {
-                    car_id2.add(cursor.getString(0));
-                    brand2.add(cursor.getString(1));
-                    type2.add(cursor.getString(2));
-                    edition2.add(cursor.getString(3));
-                    price2.add(cursor.getString(4));
-                    power2.add(cursor.getString(5));
-                    color2.add(cursor.getString(6));
-                    year2.add(cursor.getString(7));
-                    plate2.add(cursor.getString(8));
+                while (mergeCursor.moveToNext()) {
+                    car_id2.add(mergeCursor.getString(0));
+                    brand2.add(mergeCursor.getString(1));
+                    type2.add(mergeCursor.getString(2));
+                    edition2.add(mergeCursor.getString(3));
+                    price2.add(mergeCursor.getString(4));
+                    power2.add(mergeCursor.getString(5));
+                    color2.add(mergeCursor.getString(6));
+                    year2.add(mergeCursor.getString(7));
+                    plate2.add(mergeCursor.getString(8));
                     count2.add(String.valueOf(car_count));
-                    acceleration2.add(cursor.getString(10));
-                    topspeed2.add(cursor.getString(11));
-                    rank2.add(cursor.getString(12));
+                    acceleration2.add(mergeCursor.getString(10));
+                    topspeed2.add(mergeCursor.getString(11));
+                    rank2.add(mergeCursor.getString(12));
                     car_count += 1;
                 }
             }
