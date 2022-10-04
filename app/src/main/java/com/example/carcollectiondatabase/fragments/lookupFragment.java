@@ -1,6 +1,7 @@
 package com.example.carcollectiondatabase.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,9 +21,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.example.carcollectiondatabase.Crawler;
 import com.example.carcollectiondatabase.DatabaseHelper;
+import com.example.carcollectiondatabase.DisplayActivity;
 import com.example.carcollectiondatabase.LoadingDialog;
 import com.example.carcollectiondatabase.MainActivity;
 import com.example.carcollectiondatabase.R;
+import com.example.carcollectiondatabase.UpdateActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +64,7 @@ public class lookupFragment extends Fragment {
         EditText plate = (EditText) view.findViewById(R.id.editplate);
         InputFilter[] filterArray = new InputFilter[2];
         filterArray[0] = new InputFilter.AllCaps();
-        filterArray[1] = new InputFilter.LengthFilter(6);
+        filterArray[1] = new InputFilter.LengthFilter(8);
         plate.setFilters(filterArray);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +83,20 @@ public class lookupFragment extends Fragment {
 
 
                         ArrayList<String> data = c.getCarData3(String.valueOf(plate.getText()));
+                        Intent intent = new Intent(getContext(), DisplayActivity.class);
+                        intent.putExtra("vehicletype", car_data.get(0));
+                        intent.putExtra("brand", data.get(0));
+                        intent.putExtra("type", data.get(1));
+                        intent.putExtra("edition", data.get(2));
+                        intent.putExtra("plate", String.valueOf(plate.getText()));
+                        intent.putExtra("price", data.get(7));
+                        intent.putExtra("power", data.get(8));
+                        intent.putExtra("color", data.get(4));
+                        intent.putExtra("year", data.get(3));
+                        intent.putExtra("acceleration", data.get(5));
+                        intent.putExtra("topspeed", data.get(6));
+                        intent.putExtra("rank", data.get(9));
+                        getActivity().startActivityForResult(intent, 1);
                         if (!data.isEmpty()) {
                             data_brand.setText(data.get(0));
                             if (car_data.get(0).equals("car")) {
@@ -96,6 +113,7 @@ public class lookupFragment extends Fragment {
                             topspeed.setText("Top speed: " + data.get(6));
                             horsepower.setText("Power: " + data.get(8));
                             ranking.setText("Rank: "+ data.get(9) +" vehicles faster (NL)");
+                            plate.setText(formatPlate(String.valueOf(plate.getText())));
 
                         }
                     } else {
@@ -121,6 +139,35 @@ public class lookupFragment extends Fragment {
         });
 
         return  view;
+    }
+
+    String formatPlate(String plate){
+        String formattedPlate = "";
+        plate = plate.replaceAll("-","");
+        int dash_count = 0;
+        for (int i = 0; i<plate.length()-1 && dash_count <= 2;i++){
+
+            char c1 = plate.charAt(i);
+            char c2 = plate.charAt(i+1);
+
+            formattedPlate += c1;
+
+            if (Character.isDigit(c1) ^ Character.isDigit(c2)){
+                formattedPlate += "-";
+                dash_count += 1;
+            }
+
+            if (i==plate.length()-2){
+                formattedPlate += c2;
+            }
+
+        }
+
+        if (dash_count == 1){
+            formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
+        }
+
+        return formattedPlate;
     }
 
 }

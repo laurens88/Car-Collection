@@ -101,7 +101,7 @@ public class UpdateActivity extends AppCompatActivity {
                 brand = brand_input.getText().toString().trim();
                 type = type_input.getText().toString().trim();
                 edition = edition_input.getText().toString().trim();
-                plate = plate_input.getText().toString().trim();
+                plate = plate_input.getText().toString().trim().replaceAll("-","");
                 price = price_input.getText().toString().trim();
                 power = power_input.getText().toString().trim();
                 color = color_input.getText().toString().trim();
@@ -200,7 +200,7 @@ public class UpdateActivity extends AppCompatActivity {
             power = getIntent().getStringExtra("power");
             color = getIntent().getStringExtra("color");
             year = getIntent().getStringExtra("year");
-            plate = getIntent().getStringExtra("plate");
+            plate = getIntent().getStringExtra("plate").replaceAll("-","");
             acceleration = getIntent().getStringExtra("acceleration");
             topspeed = getIntent().getStringExtra("topspeed");
             rank = getIntent().getStringExtra("rank");
@@ -216,7 +216,7 @@ public class UpdateActivity extends AppCompatActivity {
             if (plate.equals("null")){
                 plate_input.setText("");
             }else{
-            plate_input.setText(plate);}
+            plate_input.setText(formatPlate(plate));}
             if (price.equals("null")){
                 price_input.setText("");
             }else{
@@ -247,11 +247,41 @@ public class UpdateActivity extends AppCompatActivity {
 
             InputFilter[] filterArray = new InputFilter[2];
             filterArray[0] = new InputFilter.AllCaps();
-            filterArray[1] = new InputFilter.LengthFilter(6);
+            filterArray[1] = new InputFilter.LengthFilter(8);
             plate_input.setFilters(filterArray);
         }else{
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    String formatPlate(String plate){
+        String formattedPlate = "";
+        plate = plate.replaceAll("-","");
+        System.out.println(plate);
+        int dash_count = 0;
+        for (int i = 0; i<plate.length()-1 && dash_count <= 2;i++){
+
+            char c1 = plate.charAt(i);
+            char c2 = plate.charAt(i+1);
+
+            formattedPlate += c1;
+
+            if (Character.isDigit(c1) ^ Character.isDigit(c2)){
+                formattedPlate += "-";
+                dash_count += 1;
+            }
+
+            if (i==plate.length()-2){
+                formattedPlate += c2;
+            }
+
+        }
+
+        if (dash_count == 1){
+            formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
+        }
+
+        return formattedPlate;
     }
 
     void confirmDialog(){

@@ -83,6 +83,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }else {Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();}
     }
 
+    void addCarFromLookup(String brand, String type, String edition, String price, String year,
+                          String power, String color, String acc, String topspeed, String rank, String plate, String vehicle){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_BRAND, brand);
+        if (vehicle.equals("car")) {
+            cv.put(COLUMN_TYPE, type);
+            cv.put(COLUMN_EDITION, edition);
+        }
+        else{
+            cv.put(COLUMN_TYPE, edition);
+        }
+        cv.put(COLUMN_YEAR, year);
+        cv.put(COLUMN_PRICE, price);
+        cv.put(COLUMN_COLOR, color);
+        cv.put(COLUMN_HP, power);
+        cv.put(COLUMN_PLATE, plate);
+        cv.put(COLUMN_COUNT, "placeholder");
+        cv.put(COLUMN_ACCELERATION, acc);
+        cv.put(COLUMN_TOPSPEED, topspeed);
+        cv.put(COLUMN_RANK, rank);
+
+        long result = db.insert(TABLE_NAME, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed to add car", Toast.LENGTH_SHORT).show();
+        }else {Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();}
+    }
+
     void addCarPlate(String plate, String vehicleType) throws IOException {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

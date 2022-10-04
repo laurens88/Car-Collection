@@ -48,7 +48,7 @@ public class AddActivity extends AppCompatActivity {
         plate_input = findViewById(R.id.editPlate);
         InputFilter[] filterArray = new InputFilter[2];
         filterArray[0] = new InputFilter.AllCaps();
-        filterArray[1] = new InputFilter.LengthFilter(6);
+        filterArray[1] = new InputFilter.LengthFilter(8);
         plate_input.setFilters(filterArray);
         add_entry = findViewById(R.id.add_entry);
         add_entry.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,7 @@ public class AddActivity extends AppCompatActivity {
                 }
                 else{
                     Crawler c = new Crawler();
-                    if (dbhelper.getPlates().contains(String.valueOf(plate_input.getText()))) {
+                    if (dbhelper.getPlates().contains(String.valueOf(plate_input.getText()).replaceAll("-",""))) {
                         Toast.makeText(getBaseContext(), "Car already added", Toast.LENGTH_SHORT).show();
                     } else {
                         try {
