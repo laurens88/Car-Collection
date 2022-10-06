@@ -47,9 +47,9 @@ public class Crawler {
         try {
 
             URL url_object = new URL(url);
-
             // read text returned by server
             BufferedReader in = new BufferedReader(new InputStreamReader(url_object.openStream()));
+
 
             String line;
             while ((line = in.readLine()) != null) {
@@ -65,6 +65,7 @@ public class Crawler {
                     return data;
                 }
             }
+
             in.close();
 
         } catch (MalformedURLException e) {
@@ -72,6 +73,7 @@ public class Crawler {
         } catch (IOException e) {
             System.out.println("I/O Error: " + e.getMessage());
         }
+
         return data;
     }
 

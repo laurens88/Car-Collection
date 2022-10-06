@@ -65,7 +65,7 @@ public class lookupFragment extends Fragment {
                 }
 
                 try {
-                    ArrayList<String> car_data = c.getCarDataFast(String.valueOf(plate.getText()));
+                    ArrayList<String> car_data = c.getCarDataFast(String.valueOf(plate.getText()).replaceAll("-",""));
 
                     if (!car_data.isEmpty()) {
                         progressButton.buttonActivated();

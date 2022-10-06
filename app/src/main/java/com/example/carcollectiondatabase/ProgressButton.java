@@ -17,17 +17,11 @@ public class ProgressButton {
     private ProgressBar progressBar;
     private TextView textView;
 
-    Animation fade_in;
-
     public ProgressButton(Context context, View view){
         cardView = view.findViewById(R.id.progress_cardview);
         layout = view.findViewById(R.id.progress_constraint_layout);
         progressBar = view.findViewById(R.id.progressBar2);
         textView = view.findViewById(R.id.progress_text);
-        System.out.println(cardView);
-        System.out.println(layout);
-        System.out.println(progressBar);
-        System.out.println(textView);
     }
 
     public void buttonActivated(){
