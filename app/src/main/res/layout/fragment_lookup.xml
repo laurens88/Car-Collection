@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,127 +9,6 @@
     android:background="@drawable/background"
     android:padding="20dp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/brand"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Brand"-->
-<!--        android:textSize="42dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white" />-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/type"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Type"-->
-<!--        android:textSize="32dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_below="@+id/brand" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/edition"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text=""-->
-<!--        android:textSize="24dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_below="@+id/type" />-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/price"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/edition"-->
-<!--        android:text="Price: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"/>-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/horsepower"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/price"-->
-<!--        android:text="Power: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"/>-->
-
-<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;        android:id="@+id/color_text"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_below="@+id/power_text"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:text="Color: "&ndash;&gt;-->
-<!--&lt;!&ndash;        android:textSize="28dp" />&ndash;&gt;-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/color"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/horsepower"-->
-<!--        android:text="Color: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white" />-->
-
-<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;        android:id="@+id/year_text"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_below="@+id/color_text"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:text="Year: "&ndash;&gt;-->
-<!--&lt;!&ndash;        android:textSize="28dp" />&ndash;&gt;-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/year"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/color"-->
-<!--        android:text="Year: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"-->
-<!--        />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/acceleration"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/year"-->
-<!--        android:text="0-100: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"-->
-<!--        />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/topspeed"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/acceleration"-->
-<!--        android:text="Top speed: "-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/white"-->
-<!--        />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/ranking"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/topspeed"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="Ranking:"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textColor="@color/white"-->
-<!--        />-->
 
 
     <EditText
@@ -139,6 +18,7 @@
         android:layout_centerHorizontal="true"
         android:hint="License plate"
         android:textSize="32dp"
+        android:paddingTop="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -146,29 +26,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.367" />
 
-    <Button
-        android:id="@+id/lookupbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editplate"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/teal_200"
-        android:text="Lookup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <include-->
-<!--        android:id="@+id/include"-->
-<!--        layout="@layout/progress_button"-->
-<!--        android:layout_width="match_parent"-->
+<!--    <Button-->
+<!--        android:id="@+id/lookupbutton"-->
+<!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/editplate"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:backgroundTint="@color/teal_200"-->
+<!--        android:text="Lookup"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.724" />-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/padding"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/editplate"
+        android:text=""/>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/progress_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/padding"
+        app:layout_constraintVertical_bias="0.554" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

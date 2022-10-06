@@ -10,17 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carcollectiondatabase.fragments.lookupFragment;
+
 public class DisplayActivity extends AppCompatActivity {
-
-
-    InputFilter[] filterArray = new InputFilter[2];
-//    filterArray[0] = new InputFilter.AllCaps();
-//    filterArray[1] = new InputFilter.LengthFilter(8);
-//    plate.setFilters(filterArray);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lookupFragment.resetProgressButton();
         setContentView(R.layout.activity_display);
 
         TextView data_brand = (TextView) findViewById(R.id.brandD);
@@ -56,7 +53,7 @@ public class DisplayActivity extends AppCompatActivity {
         } else {
             data_type.setText(editionString);
         }
-        //hide edition textview?
+
         price.setText("Price: " + priceString);
         year.setText("Year: " + yearString);
         color.setText("Color: " + colorString);
@@ -71,7 +68,12 @@ public class DisplayActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                 if (dbhelper.getPlates().contains(plateString.replaceAll("-",""))){
-                    Toast.makeText(getBaseContext(), "Car already added", Toast.LENGTH_SHORT).show();
+                    if (vehicle.equals("car")) {
+                        Toast.makeText(getBaseContext(), "Car already added", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getBaseContext(), "Motorcyle already added", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                 dbhelper.addCarFromLookup(brand, type, editionString, priceString, yearString,
                         power, colorString, accelerationString, topspeedString, rankString, plateString, vehicle);

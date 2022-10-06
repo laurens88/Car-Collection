@@ -1,19 +1,12 @@
 package com.example.carcollectiondatabase;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
-
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Menu;
@@ -24,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +30,8 @@ public class UpdateActivity extends AppCompatActivity {
     String id, brand, type, edition, plate, price, power, color, year, acceleration, topspeed, rank;
 
     ActionBar ab;
+
+    ArrayList<String> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,20 +74,6 @@ public class UpdateActivity extends AppCompatActivity {
             ab.setTitle("");
         }
 
-
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == AddActivity.RESULT_OK){
-                            Intent data = result.getData();
-                            recreate();
-                        }
-                    }
-                }
-        );
-
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,14 +90,27 @@ public class UpdateActivity extends AppCompatActivity {
                 topspeed = topspeed_input.getText().toString().trim();
                 rank = rank_input.getText().toString().trim();
 
+                Crawler c = new Crawler();
+                try {
+                    data = c.getCarDataFast(plate);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(data.isEmpty()){
+                    Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
+                }else{
+                if (dbheper.getPlates().contains(plate.replaceAll("-",""))){
+                    Toast.makeText(getBaseContext(),"Vehicle already added", Toast.LENGTH_SHORT).show();
+                }else{
 
                 dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
                 topspeed, rank);
 
+                Toast.makeText(getBaseContext(),"Updated successfully", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getBaseContext(), ListFragment.class);
                 startActivity(intent);
-//                activityResultLauncher.launch(intent);
-            }
+            }}}
         });
 
         cancel_button.setOnClickListener(new View.OnClickListener() {

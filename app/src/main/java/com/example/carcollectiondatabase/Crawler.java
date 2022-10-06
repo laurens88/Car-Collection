@@ -97,33 +97,6 @@ public class Crawler {
         return clean;
     }
 
-    String clean_price(String raw){
-        String clean = clean_data(raw);
-        clean = clean.replaceAll("&euro; ", "€");
-        return clean;
-    }
-
-    String clean_power(String raw){
-        String clean = "";
-
-        boolean relevant = true;
-        int counter = 0;
-        for(int i = 0; i<raw.length(); i++){
-            if (raw.charAt(i) == 'P'){
-                counter++;
-            }
-            if(raw.charAt(i) == 'K' && counter == 1){
-                clean += raw.charAt(i);
-                relevant = false;
-            }
-            if (relevant){
-                clean += raw.charAt(i);
-            }
-        }
-
-        return clean.replaceAll("PK", "HP");
-    }
-
     String translate(String raw){
         if (raw.equals("Niet geregistreerd") || raw.equals("Onbekend")){
             return "Unknown";
@@ -133,10 +106,6 @@ public class Crawler {
 
     String translate_power(String raw){
         return raw.replaceAll("PK", "HP");
-    }
-
-    String translate_acc(String raw){
-        return raw.replaceAll("seconden", "seconds");
     }
 
     String clean_price2(String raw){return raw.replaceAll("&#x20AC; ", "€");}
@@ -159,8 +128,6 @@ public class Crawler {
 
     public ArrayList<String> getCarData3(String plate){
         ArrayList<String> data = new ArrayList<>();
-
-//        https://centraalbeheer.finnik.nl/kenteken/g164tn/gratis
         String url = "https://centraalbeheer.finnik.nl/kenteken/" + plate + "/gratis";
 
         try {
@@ -185,7 +152,6 @@ public class Crawler {
             color = -1;
             while ((line = in.readLine()) != null) {
                 line_counter++;
-//                System.out.println(line_counter +" " + line);
                 if (line.contains("<p>Merk, model, kleur en meer</p>")){
                     start = line_counter;
                     brand = start+14;

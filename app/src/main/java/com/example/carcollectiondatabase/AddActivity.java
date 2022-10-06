@@ -64,8 +64,6 @@ public class AddActivity extends AppCompatActivity {
                     }
                     else {
                         dbhelper.addCarManually(brand_input.getText().toString().trim(), type_input.getText().toString().trim());
-//                        Intent intent = new Intent(getBaseContext(), ListFragment.class);
-//                        startActivity(intent);
                         Intent intent = new Intent(getBaseContext(), ListFragment.class);
                         activityResultLauncher.launch(intent);
                         brand_input.setText("");
@@ -75,7 +73,7 @@ public class AddActivity extends AppCompatActivity {
                 else{
                     Crawler c = new Crawler();
                     if (dbhelper.getPlates().contains(String.valueOf(plate_input.getText()).replaceAll("-",""))) {
-                        Toast.makeText(getBaseContext(), "Car already added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Vehicle already added", Toast.LENGTH_SHORT).show();
                     } else {
                         try {
                             ArrayList<String> car_data = c.getCarDataFast(plate);
@@ -85,9 +83,6 @@ public class AddActivity extends AppCompatActivity {
                                 dbhelper.addCarPlate(plate, car_data.get(0));
                                 Intent intent = new Intent(getBaseContext(), ListFragment.class);
                                 startActivity(intent);
-//                            activityResultLauncher.launch(intent);
-
-
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

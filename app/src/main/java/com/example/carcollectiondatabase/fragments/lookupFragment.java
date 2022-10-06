@@ -33,9 +33,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class lookupFragment extends Fragment {
-    private Button button;
+    private static ProgressButton progressButton;
     Crawler c;
-    DatabaseHelper dbhelper;
 
 
     @Override
@@ -44,151 +43,70 @@ public class lookupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lookup, container, false);
 
-        button = view.findViewById(R.id.lookupbutton);
-
-
-//        view.findViewById(R.id.include);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ProgressButton progressButton = new ProgressButton(getContext(), view);
-//                System.out.println(progressButton);
-//
-//                progressButton.buttonActivated();
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        progressButton.buttonFinished();
-//                    }
-//                }, 3000);
-//            }
-//        });
-
-        c = new Crawler();
-        dbhelper = new DatabaseHelper(getContext());
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        c = new Crawler();
 
-//        TextView data_brand = (TextView) view.findViewById(R.id.brand);
-//        TextView data_type = (TextView) view.findViewById(R.id.type);
-//        TextView edition = (TextView) view.findViewById(R.id.edition);
-//        TextView price = (TextView) view.findViewById(R.id.price);
-//        TextView horsepower = (TextView) view.findViewById(R.id.horsepower);
-//        TextView year = (TextView) view.findViewById(R.id.year);
-//        TextView color = (TextView) view.findViewById(R.id.color);
-//        TextView acceleration = (TextView) view.findViewById(R.id.acceleration);
-//        TextView topspeed = (TextView) view.findViewById(R.id.topspeed);
-//        TextView ranking = (TextView) view.findViewById(R.id.ranking);
         EditText plate = (EditText) view.findViewById(R.id.editplate);
         InputFilter[] filterArray = new InputFilter[2];
         filterArray[0] = new InputFilter.AllCaps();
         filterArray[1] = new InputFilter.LengthFilter(8);
         plate.setFilters(filterArray);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.include);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressButton = new ProgressButton(getContext(), view);
+
                 if (getActivity().getCurrentFocus() != null) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
                 }
 
-
                 try {
                     ArrayList<String> car_data = c.getCarDataFast(String.valueOf(plate.getText()));
 
                     if (!car_data.isEmpty()) {
+                        progressButton.buttonActivated();
 
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ArrayList<String> data = c.getCarData3(String.valueOf(plate.getText()).replaceAll("-", ""));
+                                Intent intent = new Intent(getContext(), DisplayActivity.class);
+                                intent.putExtra("vehicletype", car_data.get(0));
+                                intent.putExtra("brand", data.get(0));
+                                intent.putExtra("type", data.get(1));
+                                intent.putExtra("edition", data.get(2));
+                                intent.putExtra("plate", String.valueOf(plate.getText()));
+                                intent.putExtra("price", data.get(7));
+                                intent.putExtra("power", data.get(8));
+                                intent.putExtra("color", data.get(4));
+                                intent.putExtra("year", data.get(3));
+                                intent.putExtra("acceleration", data.get(5));
+                                intent.putExtra("topspeed", data.get(6));
+                                intent.putExtra("rank", data.get(9));
+                                plate.setText("");
+                                plate.clearFocus();
+                                getActivity().startActivityForResult(intent, 1);
+                            }
+                        }, 1);
 
-                        ArrayList<String> data = c.getCarData3(String.valueOf(plate.getText()).replaceAll("-", ""));
-                        Intent intent = new Intent(getContext(), DisplayActivity.class);
-                        intent.putExtra("vehicletype", car_data.get(0));
-                        intent.putExtra("brand", data.get(0));
-                        intent.putExtra("type", data.get(1));
-                        intent.putExtra("edition", data.get(2));
-                        intent.putExtra("plate", String.valueOf(plate.getText()));
-                        intent.putExtra("price", data.get(7));
-                        intent.putExtra("power", data.get(8));
-                        intent.putExtra("color", data.get(4));
-                        intent.putExtra("year", data.get(3));
-                        intent.putExtra("acceleration", data.get(5));
-                        intent.putExtra("topspeed", data.get(6));
-                        intent.putExtra("rank", data.get(9));
-                        plate.setText("");
-                        plate.clearFocus();
-                        getActivity().startActivityForResult(intent, 1);
-//                        if (!data.isEmpty()) {
-//                            data_brand.setText(data.get(0));
-//                            if (car_data.get(0).equals("car")) {
-//                                data_type.setText(data.get(1));
-//                                edition.setText(data.get(2));
-//                            } else {
-//                                data_type.setText(data.get(2));
-//                            }
-//                            price.setText("Price: " + data.get(7));
-//                            year.setText("Year: " + data.get(3));
-//                            color.setText("Color: " + data.get(4));
-//                            acceleration.setText("0-100: " + data.get(5));
-//                            topspeed.setText("Top speed: " + data.get(6));
-//                            horsepower.setText("Power: " + data.get(8));
-//                            ranking.setText("Rank: "+ data.get(9) +" vehicles faster (NL)");
-//                            plate.setText(formatPlate(String.valueOf(plate.getText())));
-
-//                        }
                     } else {
                         Toast.makeText(getContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
-//                        data_brand.setText("Brand");
-//                        data_type.setText("Type");
-//                        edition.setText("");
-//                        price.setText("Price: ");
-//                        horsepower.setText("Power: ");
-//                        year.setText("Year: ");
-//                        color.setText("Color: ");
-//                        acceleration.setText("0-100: ");
-//                        topspeed.setText("Top speed: ");
-//                        ranking.setText("Ranking: ");
                     }
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         });
-
         return  view;
     }
 
-    String formatPlate(String plate){
-        String formattedPlate = "";
-        plate = plate.replaceAll("-","");
-        int dash_count = 0;
-        for (int i = 0; i<plate.length()-1 && dash_count <= 2;i++){
-
-            char c1 = plate.charAt(i);
-            char c2 = plate.charAt(i+1);
-
-            formattedPlate += c1;
-
-            if (Character.isDigit(c1) ^ Character.isDigit(c2)){
-                formattedPlate += "-";
-                dash_count += 1;
-            }
-
-            if (i==plate.length()-2){
-                formattedPlate += c2;
-            }
-
-        }
-
-        if (dash_count == 1){
-            formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
-        }
-
-        return formattedPlate;
+    public static void resetProgressButton(){
+        progressButton.buttonReset();
     }
-
 }

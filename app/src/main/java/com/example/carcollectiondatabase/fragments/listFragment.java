@@ -1,7 +1,5 @@
 package com.example.carcollectiondatabase.fragments;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
@@ -52,8 +50,6 @@ public class listFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         add_button = view.findViewById(R.id.add_button);
         dbhelper = new DatabaseHelper(getContext());
-//        dbhelper.addList();
-//        dbhelper.removeAll();
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +58,6 @@ public class listFragment extends Fragment {
             }
         });
 
-//        dbhelper = new DatabaseHelper(getContext());
         car_id = new ArrayList<>();
         brand = new ArrayList<>();
         type = new ArrayList<>();
@@ -132,7 +127,6 @@ public class listFragment extends Fragment {
 
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 
     void storeDataInArrays(){
         Cursor cursor = dbhelper.readAllData();

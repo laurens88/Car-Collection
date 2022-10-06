@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.carcollectiondatabase.fragments.brandFragment;
+import com.example.carcollectiondatabase.fragments.profileFragment;
 import com.example.carcollectiondatabase.fragments.listFragment;
 import com.example.carcollectiondatabase.fragments.lookupFragment;
 
@@ -23,7 +23,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new listFragment();
             default:
-                return new brandFragment();
+                return new profileFragment();
         }
     }
 

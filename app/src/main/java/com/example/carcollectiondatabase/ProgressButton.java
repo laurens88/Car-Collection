@@ -1,6 +1,7 @@
 package com.example.carcollectiondatabase;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ProgressBar;
@@ -38,5 +39,11 @@ public class ProgressButton {
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.teal_200));
         progressBar.setVisibility(View.GONE);
         textView.setText("Done");
+    }
+
+    public void buttonReset(){
+        layout.setBackgroundColor(cardView.getResources().getColor(R.color.black));
+        progressBar.setVisibility(View.GONE);
+        textView.setText("Lookup");
     }
 }
