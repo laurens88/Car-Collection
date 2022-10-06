@@ -70,7 +70,7 @@ public class DisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
-                if (dbhelper.getPlates().contains(plateString)){
+                if (dbhelper.getPlates().contains(plateString.replaceAll("-",""))){
                     Toast.makeText(getBaseContext(), "Car already added", Toast.LENGTH_SHORT).show();
                 }else{
                 dbhelper.addCarFromLookup(brand, type, editionString, priceString, yearString,
@@ -104,7 +104,12 @@ public class DisplayActivity extends AppCompatActivity {
         }
 
         if (dash_count == 1){
-            formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
+            if (formattedPlate.charAt(2)=='-') {
+                formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
+            }
+            else{
+                formattedPlate = formattedPlate.substring(0, 2) + "-" + formattedPlate.substring(2);
+            }
         }
 
         return formattedPlate;

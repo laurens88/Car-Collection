@@ -24,6 +24,7 @@ import com.example.carcollectiondatabase.DatabaseHelper;
 import com.example.carcollectiondatabase.DisplayActivity;
 import com.example.carcollectiondatabase.LoadingDialog;
 import com.example.carcollectiondatabase.MainActivity;
+import com.example.carcollectiondatabase.ProgressButton;
 import com.example.carcollectiondatabase.R;
 import com.example.carcollectiondatabase.UpdateActivity;
 
@@ -44,6 +45,25 @@ public class lookupFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lookup, container, false);
 
         button = view.findViewById(R.id.lookupbutton);
+
+
+//        view.findViewById(R.id.include);
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ProgressButton progressButton = new ProgressButton(getContext(), view);
+//                System.out.println(progressButton);
+//
+//                progressButton.buttonActivated();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        progressButton.buttonFinished();
+//                    }
+//                }, 3000);
+//            }
+//        });
 
         c = new Crawler();
         dbhelper = new DatabaseHelper(getContext());
@@ -82,7 +102,7 @@ public class lookupFragment extends Fragment {
                     if (!car_data.isEmpty()) {
 
 
-                        ArrayList<String> data = c.getCarData3(String.valueOf(plate.getText()));
+                        ArrayList<String> data = c.getCarData3(String.valueOf(plate.getText()).replaceAll("-", ""));
                         Intent intent = new Intent(getContext(), DisplayActivity.class);
                         intent.putExtra("vehicletype", car_data.get(0));
                         intent.putExtra("brand", data.get(0));

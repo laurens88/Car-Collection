@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PRICE, price);
         cv.put(COLUMN_COLOR, color);
         cv.put(COLUMN_HP, power);
-        cv.put(COLUMN_PLATE, plate);
+        cv.put(COLUMN_PLATE, plate.replaceAll("-", ""));
         cv.put(COLUMN_COUNT, "placeholder");
         cv.put(COLUMN_ACCELERATION, acc);
         cv.put(COLUMN_TOPSPEED, topspeed);
@@ -117,6 +117,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         Crawler c = new Crawler();
+
+        plate = plate.replaceAll("-", "");
 
         ArrayList<String> car_data = c.getCarData3(plate);
 
@@ -140,9 +142,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RANK, car_data.get(9));
 
         long result = db.insert(TABLE_NAME, null, cv);
-        if(result == -1){
-            Toast.makeText(context, "Failed to add car", Toast.LENGTH_SHORT).show();
-        }else {Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();}
+        if (vehicleType.equals("car")) {
+            if (result == -1) {
+                Toast.makeText(context, "Failed to add car", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            if (result == -1) {
+                Toast.makeText(context, "Failed to add motorcycle", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Motorcycle added", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public Cursor readAllData(){
@@ -213,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Car updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Entry updated", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -223,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Car deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Entry deleted", Toast.LENGTH_SHORT).show();
         }
 
     }

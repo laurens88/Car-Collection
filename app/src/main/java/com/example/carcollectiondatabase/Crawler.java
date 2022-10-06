@@ -220,15 +220,15 @@ public class Crawler {
                 }
                 //Type
                 if (line_counter == type){
-                    data.add(line);
+                    data.add(translate(line.replaceAll("&#xE9;","é")));
                 }
                 //Edition
                 if (line_counter == edition) {
-                    data.add(line);
+                    data.add(translate(line));
                 }
                 //Price
                 if (line_counter == price){
-                    data.add(clean_price2(line));
+                    data.add(translate(clean_price2(line)));
                 }
                 //Year
                 if (line_counter == year){
