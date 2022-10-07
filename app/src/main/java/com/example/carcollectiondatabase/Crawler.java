@@ -124,7 +124,7 @@ public class Crawler {
                 clean += raw.charAt(i);
             }
         }
-        return clean;
+        return clean.replaceAll("\\.","");
     }
 
 

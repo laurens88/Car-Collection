@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.carcollectiondatabase.fragments.lookupFragment;
 
+import java.text.NumberFormat;
+
 public class DisplayActivity extends AppCompatActivity {
 
     @Override
@@ -60,7 +62,7 @@ public class DisplayActivity extends AppCompatActivity {
         acceleration.setText("0-100: " + accelerationString);
         topspeed.setText("Top speed: " + topspeedString);
         horsepower.setText("Power: " + power);
-        ranking.setText("Rank: "+ rankString +" vehicles faster (NL)");
+        ranking.setText("Rank: "+ formatRank(rankString) +" vehicles faster (NL)");
         plate.setText(formatPlate(plateString));
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +117,12 @@ public class DisplayActivity extends AppCompatActivity {
         }
 
         return formattedPlate;
+    }
+
+    String formatRank(String rank){
+        NumberFormat format = NumberFormat.getInstance();
+        format.setGroupingUsed(true);
+
+        return String.valueOf(format.format(Integer.parseInt(rank))).replaceAll(",",".");
     }
 }

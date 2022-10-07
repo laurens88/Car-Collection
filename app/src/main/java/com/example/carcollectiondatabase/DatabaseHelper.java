@@ -107,9 +107,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RANK, rank);
 
         long result = db.insert(TABLE_NAME, null, cv);
-        if(result == -1){
-            Toast.makeText(context, "Failed to add car", Toast.LENGTH_SHORT).show();
-        }else {Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();}
+        if (vehicle.equals("car")) {
+            if (result == -1) {
+                Toast.makeText(context, "Failed to add car", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Car added", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            if (result == -1) {
+                Toast.makeText(context, "Failed to add motorcycle", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Motorcycle added", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     void addCarPlate(String plate, String vehicleType) throws IOException {
@@ -248,8 +258,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         if(db != null){
             cursor = db.rawQuery(query, new String[]{term.toUpperCase()});
-            System.out.println("Search term: "+term);
-            System.out.println(cursorToString(cursor));
         }
         return cursor;
     }
@@ -261,10 +269,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         if(db != null){
             cursor = db.rawQuery(query, new String[]{term.toUpperCase()});
-            System.out.println("Search term: "+term);
-            System.out.println(cursorToString(cursor));
         }
         return cursor;
+    }
+
+    public ArrayList<String> searchFastest(){
+        String query = "SELECT *, min(car_rank) FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
+    }
+
+    public ArrayList<String> searchMostFrequentBrand(){
+        String query = "SELECT *, count(car_brand) as brand_freq FROM "+TABLE_NAME+" GROUP BY "+COLUMN_BRAND+" ORDER BY brand_freq DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
+    }
+
+    public ArrayList<String> getPrices(){
+        String query = "SELECT "+COLUMN_PRICE+" from "+TABLE_NAME+" where "+COLUMN_PRICE+" != \"Unknown\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
+    }
+
+    public int getTotalValue(ArrayList<String> prices){
+        int sum = 0;
+        for(String price : prices){
+            sum += Integer.parseInt(price.replaceAll("\\.|€|\\,|-",""));
+        }
+        return sum;
+    }
+
+    public ArrayList<String> getDistinctColors(){
+        String query = "SELECT count(distinct "+COLUMN_COLOR+") from "+TABLE_NAME+" where "+COLUMN_COLOR+" != \"Unknown\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
     }
 
     @SuppressLint("Range")
@@ -283,31 +341,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return plates;
     }
 
-    public ArrayList<String> getFastestCar(){
-        ArrayList<String> car = new ArrayList<>();
 
-
-
-        return car;
-    }
 
     @SuppressLint("Range")
-    public String cursorToString(Cursor cursor){
-        String cursorString = "";
+    public ArrayList<String> cursorToArrayList(Cursor cursor){
+        ArrayList<String> cursorList = new ArrayList<>();
         if (cursor.moveToFirst() ){
             String[] columnNames = cursor.getColumnNames();
-            for (String name: columnNames)
-                cursorString += String.format("%s ][ ", name);
-            cursorString += "\n";
             do {
                 for (String name: columnNames) {
-                    cursorString += String.format("%s ][ ",
-                            cursor.getString(cursor.getColumnIndex(name)));
+                    cursorList.add(cursor.getString(cursor.getColumnIndex(name)));
                 }
-                cursorString += "\n";
             } while (cursor.moveToNext());
         }
-        return cursorString;
+        return cursorList;
     }
 
     public void addList() {

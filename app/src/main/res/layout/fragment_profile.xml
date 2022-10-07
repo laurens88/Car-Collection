@@ -8,7 +8,7 @@
     android:layout_below="@+id/tab_layout">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/fastestTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fastest car"
@@ -25,20 +25,11 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-    <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/favBrandTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Favorite brand"
@@ -52,12 +43,11 @@
         app:layout_constraintVertical_bias="0.178" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/favBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintStart_toStartOf="@+id/favBrandTitle"
+        app:layout_constraintTop_toBottomOf="@+id/favBrandTitle" />
 
     <TextView
         android:id="@+id/textView15"
@@ -88,13 +78,12 @@
         app:layout_constraintVertical_bias="0.447" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/fastest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintStart_toStartOf="@+id/fastestTitle"
+        app:layout_constraintTop_toBottomOf="@+id/fastestTitle" />
 
     <TextView
         android:id="@+id/textView19"
@@ -111,32 +100,40 @@
         app:layout_constraintVertical_bias="0.583" />
 
     <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-    <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valet parking"
+        android:text="Millionaire motorist"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.722" />
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="169dp"
+        android:layout_height="15dp"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="165dp"
+        android:layout_height="17dp"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <ProgressBar
+        android:id="@+id/progressBar5"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="257dp"
+        android:layout_height="12dp"
         app:layout_constraintStart_toStartOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 

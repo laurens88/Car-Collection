@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class UpdateActivity extends AppCompatActivity {
@@ -236,7 +237,7 @@ public class UpdateActivity extends AppCompatActivity {
             }else{
                 topspeed_input.setText(topspeed);
             }
-            rank_input.setText(rank);
+            rank_input.setText(formatRank(rank));
 
             InputFilter[] filterArray = new InputFilter[2];
             filterArray[0] = new InputFilter.AllCaps();
@@ -275,6 +276,13 @@ public class UpdateActivity extends AppCompatActivity {
         }
 
         return formattedPlate;
+    }
+
+    String formatRank(String rank){
+        NumberFormat format = NumberFormat.getInstance();
+        format.setGroupingUsed(true);
+
+        return String.valueOf(format.format(Integer.parseInt(rank))).replaceAll(",",".");
     }
 
     void confirmDialog(){
