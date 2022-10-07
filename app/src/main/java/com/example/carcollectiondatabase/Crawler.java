@@ -22,18 +22,19 @@ public class Crawler {
 
     public String translate_color(String s){
         switch (s.toLowerCase()){
-            case "zwart": return "Black";
-            case "wit": return "White";
-            case "geel": return "Yellow";
-            case "groen": return "Green";
-            case "grijs": return "Grey";
-            case "blauw": return "Blue";
-            case "rood": return "Red";
-            case "zilver": return "Silver";
-            case "bruin": return "Brown";
-            case "paars": return "Purple";
-            case "goud": return "Gold";
             case "oranje": return "Orange";
+            case "roze": return "Pink";
+            case "rood": return "Red";
+            case "wit": return "White";
+            case "blauw": return "Blue";
+            case "groen": return "Green";
+            case "geel": return "Yellow";
+            case "grijs": return "Grey";
+            case "bruin": return "Brown";
+            case "crème": return "Cream";
+            case "paars": return "Purple";
+            case "zwart": return "Black";
+            case "diversen": return "Multi color";
             default: return s;
         }
     }
