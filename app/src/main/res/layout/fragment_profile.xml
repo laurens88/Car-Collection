@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.profileFragment"
-    android:layout_below="@+id/tab_layout">
+    android:layout_below="@+id/tab_layout"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/fastestTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fastest car"
+        android:text="Fastest vehicle"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,11 +23,11 @@
         app:layout_constraintVertical_bias="0.041" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/oldest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="@+id/oldestTitle"
+        app:layout_constraintTop_toBottomOf="@+id/oldestTitle" />
 
     <TextView
         android:id="@+id/favBrandTitle"
@@ -37,7 +38,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.178" />
@@ -50,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/favBrandTitle" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/oldestTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="The oldtimer"
@@ -58,13 +59,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.311" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/colorfulTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Colorful cars"
@@ -72,7 +73,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.447" />
@@ -86,21 +87,21 @@
         app:layout_constraintTop_toBottomOf="@+id/fastestTitle" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/completionistTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Luxury three"
+        android:text="Completionist"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.583" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/MillionaireTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Millionaire motorist"
@@ -108,33 +109,33 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.165"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.722" />
 
     <ProgressBar
-        android:id="@+id/progressBar3"
+        android:id="@+id/colorProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="169dp"
         android:layout_height="15dp"
-        app:layout_constraintStart_toStartOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintStart_toStartOf="@+id/colorfulTitle"
+        app:layout_constraintTop_toBottomOf="@+id/colorfulTitle" />
 
     <ProgressBar
-        android:id="@+id/progressBar4"
+        android:id="@+id/completionistProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="165dp"
         android:layout_height="17dp"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintStart_toStartOf="@+id/completionistTitle"
+        app:layout_constraintTop_toBottomOf="@+id/completionistTitle" />
 
     <ProgressBar
-        android:id="@+id/progressBar5"
+        android:id="@+id/MillionaireProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="257dp"
         android:layout_height="12dp"
-        app:layout_constraintStart_toStartOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintStart_toStartOf="@+id/MillionaireTitle"
+        app:layout_constraintTop_toBottomOf="@+id/MillionaireTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ public class Crawler {
             case "geel": return "Yellow";
             case "grijs": return "Grey";
             case "bruin": return "Brown";
-            case "crème": return "Cream";
+            case "creme": return "Cream";
             case "paars": return "Purple";
             case "zwart": return "Black";
             case "diversen": return "Multi color";
@@ -185,7 +185,7 @@ public class Crawler {
 
                 //Brand
                 if (line_counter == brand) {
-                    data.add(line);
+                    data.add(line.replaceAll("Citroen", "Citroën"));
                 }
                 //Type
                 if (line_counter == type){

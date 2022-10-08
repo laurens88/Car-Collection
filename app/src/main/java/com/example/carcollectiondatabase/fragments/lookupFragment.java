@@ -53,8 +53,8 @@ public class lookupFragment extends Fragment {
         filterArray[1] = new InputFilter.LengthFilter(8);
         plate.setFilters(filterArray);
 
-        view.findViewById(R.id.include);
-        view.setOnClickListener(new View.OnClickListener() {
+        View buttonview = view.findViewById(R.id.include);
+        buttonview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressButton = new ProgressButton(getContext(), view);

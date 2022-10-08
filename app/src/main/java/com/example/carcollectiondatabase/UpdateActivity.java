@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SyncStats;
+import android.icu.text.SymbolTable;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Menu;
@@ -29,6 +31,9 @@ public class UpdateActivity extends AppCompatActivity {
     Button update_button, cancel_button;
 
     String id, brand, type, edition, plate, price, power, color, year, acceleration, topspeed, rank;
+
+    String originalType, originalEdition, originalPlate, originalPrice, originalPower,
+            originalColor, originalYear, originalAcc, originalTopspeed;
 
     ActionBar ab;
 
@@ -91,6 +96,14 @@ public class UpdateActivity extends AppCompatActivity {
                 topspeed = topspeed_input.getText().toString().trim();
                 rank = rank_input.getText().toString().trim();
 
+                if (plate.equals("")){
+                    dbheper.updateWithoutPlate(id, brand, type, edition, price, power, color,
+                            year, acceleration, topspeed, rank);
+                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), ListFragment.class);
+                    startActivity(intent);
+
+                }else{
                 Crawler c = new Crawler();
                 try {
                     data = c.getCarDataFast(plate);
@@ -100,17 +113,20 @@ public class UpdateActivity extends AppCompatActivity {
                 if(data.isEmpty()){
                     Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
                 }else{
-                if (dbheper.getPlates().contains(plate.replaceAll("-",""))){
+                if (dbheper.getPlates().contains(plate.replaceAll("-","")) && !plate.replaceAll("-", "").equals(originalPlate)){
                     Toast.makeText(getBaseContext(),"Vehicle already added", Toast.LENGTH_SHORT).show();
-                }else{
+                }else {
 
-                dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
-                topspeed, rank);
+                    dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
+                            topspeed, rank);
 
-                Toast.makeText(getBaseContext(),"Updated successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), ListFragment.class);
+                    startActivity(intent);
 
-                Intent intent = new Intent(getBaseContext(), ListFragment.class);
-                startActivity(intent);
+                }
+
+
             }}}
         });
 
@@ -172,7 +188,7 @@ public class UpdateActivity extends AppCompatActivity {
                 rank_input.setText(rank);
                 plate_input.setFocusableInTouchMode(false);
                 plate_input.clearFocus();
-                plate_input.setText(plate);
+                plate_input.setText(formatPlate(originalPlate));
                 ab.setTitle("");
             }
         });
@@ -189,14 +205,23 @@ public class UpdateActivity extends AppCompatActivity {
             id = getIntent().getStringExtra("id");
             brand = getIntent().getStringExtra("brand");
             type = getIntent().getStringExtra("type");
+            originalType = type;
             edition = getIntent().getStringExtra("edition");
+            originalEdition = edition;
             price = getIntent().getStringExtra("price");
+            originalPrice = price;
             power = getIntent().getStringExtra("power");
+            originalPower = power;
             color = getIntent().getStringExtra("color");
+            originalColor = color;
             year = getIntent().getStringExtra("year");
+            originalYear = year;
+            originalPlate = getIntent().getStringExtra("plate").replaceAll("-", "");
             plate = getIntent().getStringExtra("plate").replaceAll("-","");
             acceleration = getIntent().getStringExtra("acceleration");
+            originalAcc = acceleration;
             topspeed = getIntent().getStringExtra("topspeed");
+            originalTopspeed = topspeed;
             rank = getIntent().getStringExtra("rank");
 
             brand_input.setText(brand);
@@ -237,7 +262,11 @@ public class UpdateActivity extends AppCompatActivity {
             }else{
                 topspeed_input.setText(topspeed);
             }
-            rank_input.setText(formatRank(rank));
+            if (rank.equals("null") || rank.equals("")){
+                rank_input.setText("");
+            }else {
+                rank_input.setText(formatRank(rank.replaceAll("\\.", "")));
+            }
 
             InputFilter[] filterArray = new InputFilter[2];
             filterArray[0] = new InputFilter.AllCaps();
@@ -282,6 +311,9 @@ public class UpdateActivity extends AppCompatActivity {
         NumberFormat format = NumberFormat.getInstance();
         format.setGroupingUsed(true);
 
+        if (rank.equals("")){
+            return rank;
+        }
         return String.valueOf(format.format(Integer.parseInt(rank))).replaceAll(",",".");
     }
 

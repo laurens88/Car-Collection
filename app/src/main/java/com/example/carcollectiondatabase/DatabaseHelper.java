@@ -179,8 +179,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void updataData(String row_id, String brand, String type, String edition, String plate, String price,
-                    String power, String color, String year, String acceleration, String topspeed, String rank){
+    void updataData(String row_id, String brand, String type, String edition, String plate, String price, String power, String color, String year,
+                    String acceleration, String topspeed, String rank){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -208,29 +208,114 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                     ArrayList<String> car_data = c.getCarData3(plate);
 
-                    cv.put(COLUMN_BRAND, car_data.get(0));
+                    String crawBrand = car_data.get(0);
+                    String crawlType = car_data.get(1);
+                    String crawlEdition = car_data.get(2);
+                    String crawlYear = car_data.get(3);
+                    String crawlColor = car_data.get(4);
+                    String crawlAcc = car_data.get(5);
+                    String crawlTopspeed = car_data.get(6);
+                    String crawlPrice = car_data.get(7);
+                    String crawlPower = car_data.get(8);
+                    String crawlRank = car_data.get(9);
+
+                    cv.put(COLUMN_BRAND, crawBrand);
                     if (data.get(0).equals("car")){
-                    cv.put(COLUMN_TYPE, car_data.get(1).toUpperCase().replaceAll(car_data.get(0)+" ".toUpperCase(), "")
-                            .replaceAll("MCLAREN ", ""));
-                    cv.put(COLUMN_EDITION, car_data.get(2));
+                        if (crawlType.equals("Unknown")){
+                            cv.put(COLUMN_TYPE, type);
+                        }else {
+                            cv.put(COLUMN_TYPE, crawlType.toUpperCase().replaceAll(crawBrand + " ".toUpperCase(), "")
+                                    .replaceAll("MCLAREN ", ""));
+                        }
+                        if (crawlEdition.equals("Unknown")){
+                            cv.put(COLUMN_EDITION, edition);
+                        }else{
+                            cv.put(COLUMN_EDITION, crawlEdition);
+                        }
                     }
                     else{
-                        cv.put(COLUMN_TYPE, car_data.get(2));
+                        if (crawlEdition.equals("Unknown")){
+                            cv.put(COLUMN_TYPE, type);
+                        }else{
+                        cv.put(COLUMN_TYPE, crawlEdition);
+                        }
                     }
-                    cv.put(COLUMN_YEAR, car_data.get(3));
-                    cv.put(COLUMN_PRICE, car_data.get(7));
-                    cv.put(COLUMN_COLOR, car_data.get(4));
-                    cv.put(COLUMN_HP, car_data.get(8));
+
+                    if (crawlYear.equals("Unknown")){
+                        cv.put(COLUMN_YEAR, year);
+                    }else {
+                        cv.put(COLUMN_YEAR, crawlYear);
+                    }
+
+                    if (crawlPrice.equals("Unknown")){
+                        cv.put(COLUMN_PRICE, price);
+                    }else {
+                        cv.put(COLUMN_PRICE, crawlPrice);
+                    }
+
+                    if (crawlColor.equals("Unknown")){
+                        cv.put(COLUMN_COLOR, color);
+                    }else {
+                        cv.put(COLUMN_COLOR, crawlColor);
+                    }
+
+                    if (crawlPower.equals("Unknown")){
+                        cv.put(COLUMN_HP, power);
+                    }else {
+                        cv.put(COLUMN_HP, crawlPower);
+                    }
                     cv.put(COLUMN_PLATE, plate);
+
                     cv.put(COLUMN_COUNT, "placeholder");
-                    cv.put(COLUMN_ACCELERATION, car_data.get(5));
-                    cv.put(COLUMN_TOPSPEED, car_data.get(6));
-                    cv.put(COLUMN_RANK, car_data.get(9));
+
+                    if (crawlAcc.equals("Unknown")){
+                        cv.put(COLUMN_ACCELERATION, acceleration);
+                    }else {
+                        cv.put(COLUMN_ACCELERATION, crawlAcc);
+                    }
+
+                    if (crawlTopspeed.equals("Unknown")){
+                        cv.put(COLUMN_TOPSPEED, topspeed);
+                    }else {
+                        cv.put(COLUMN_TOPSPEED, crawlTopspeed);
+                    }
+
+                    if (crawlRank.equals("Unknown")){
+                        cv.put(COLUMN_RANK, rank);
+                    }else {
+                        cv.put(COLUMN_RANK, crawlRank);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Entry updated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void updateWithoutPlate(String row_id, String brand, String type, String edition, String price,
+                            String power, String color, String year, String acceleration, String topspeed, String rank) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_BRAND, brand);
+        cv.put(COLUMN_TYPE, type);
+        cv.put(COLUMN_EDITION, edition);
+        cv.put(COLUMN_PRICE, price);
+        cv.put(COLUMN_HP, power);
+        cv.put(COLUMN_COLOR, color);
+        cv.put(COLUMN_YEAR, year);
+        cv.put(COLUMN_COUNT, "placeholder");
+        cv.put(COLUMN_PLATE, "");
+        cv.put(COLUMN_ACCELERATION, acceleration);
+        cv.put(COLUMN_TOPSPEED, topspeed);
+        cv.put(COLUMN_RANK, rank);
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
         if(result == -1){
@@ -274,7 +359,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> searchFastest(){
-        String query = "SELECT *, min(car_rank) FROM " + TABLE_NAME;
+        String query = "SELECT *, min(car_rank) FROM " + TABLE_NAME +" where car_rank > 0";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -316,6 +401,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getDistinctColors(){
         String query = "SELECT count(distinct "+COLUMN_COLOR+") from "+TABLE_NAME+" where "+COLUMN_COLOR+" != \"Unknown\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
+    }
+
+    public ArrayList<String> getOldest(){
+        String query = "SELECT car_brand, car_type, min(car_year) from "+TABLE_NAME+" where car_year > 0";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
