@@ -18,6 +18,7 @@
         android:layout_centerHorizontal="true"
         android:hint="License plate"
         android:textSize="32dp"
+        android:textColor="@color/white"
         android:paddingTop="200dp"
         android:digits="0123456789-BCDFGHJKLMNPQRSTVWXYZ"
         app:layout_constraintBottom_toBottomOf="parent"

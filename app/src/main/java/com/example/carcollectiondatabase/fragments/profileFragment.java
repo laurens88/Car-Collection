@@ -26,7 +26,8 @@ public class profileFragment extends Fragment {
     DatabaseHelper dbhelper = new DatabaseHelper(getContext());
     ProgressBar colorful;
     ProgressBar million;
-    TextView millionTitle;
+    ProgressBar completionist;
+    TextView fastest, fave_brand, oldest, color, completion, millionaire;
 
     @SuppressLint("Range")
     @Override
@@ -35,12 +36,16 @@ public class profileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        TextView fastest = view.findViewById(R.id.fastest);
-        TextView fave_brand = view.findViewById(R.id.favBrand);
-        TextView oldest = view.findViewById(R.id.oldest);
-        TextView millionTitle = view.findViewById(R.id.MillionaireTitle);
+        fastest = view.findViewById(R.id.fastest);
+        fave_brand = view.findViewById(R.id.favBrand);
+        oldest = view.findViewById(R.id.oldest);
+        color = view.findViewById(R.id.colorProgressText);
+        completion = view.findViewById(R.id.textView14);
+        millionaire = view.findViewById(R.id.millionProgressText);
         colorful = view.findViewById(R.id.colorProgress);
         million = view.findViewById(R.id.MillionaireProgress);
+        completionist = view.findViewById(R.id.completionistProgress);
+
 
         DatabaseHelper dbhelper = new DatabaseHelper(getContext());
 
@@ -62,12 +67,19 @@ public class profileFragment extends Fragment {
         }
 
         colorful.setMax(13);
-        colorful.setProgress(Integer.parseInt(dbhelper.getDistinctColors().get(0)));
+        int colors = Integer.parseInt(dbhelper.getDistinctColors().get(0));
+        colorful.setProgress(Math.min(colors, colorful.getMax()));
+        color.setText(colors+"/"+13);
 
         million.setMax(1000000);
-        million.setProgress(Math.min(dbhelper.getTotalValue(dbhelper.getPrices()), 1000000));
+        int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
+        million.setProgress(Math.min(totalValue, 1000000));
+        millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
 
-
+        completionist.setMax(40);
+        int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
+        completionist.setProgress(Math.min(brands, 40));
+        completion.setText(brands+"/"+40);
 
         return view;
     }
@@ -75,23 +87,16 @@ public class profileFragment extends Fragment {
     @Override
     public void onResume() {
         DatabaseHelper dbhelper = new DatabaseHelper(getContext());
-        colorful.setProgress(Integer.parseInt(dbhelper.getDistinctColors().get(0)));
-        million.setProgress(Math.min(dbhelper.getTotalValue(dbhelper.getPrices()), 1000000));
+        int colors = Integer.parseInt(dbhelper.getDistinctColors().get(0));
+        colorful.setProgress(Math.min(colors, 13));
+        color.setText(colors+"/"+13);
+        int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
+        million.setProgress(Math.min(totalValue, 1000000));
+        millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
+        int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
+        completionist.setProgress(Math.min(brands, 40));
+        completion.setText(brands+"/"+40);
         super.onResume();
-    }
-
-    @SuppressLint("Range")
-    public ArrayList<String> cursorToArrayList(Cursor cursor){
-        ArrayList<String> cursorList = new ArrayList<>();
-        if (cursor.moveToFirst() ){
-            String[] columnNames = cursor.getColumnNames();
-            do {
-                for (String name: columnNames) {
-                    cursorList.add(cursor.getString(cursor.getColumnIndex(name)));
-                }
-            } while (cursor.moveToNext());
-        }
-        return cursorList;
     }
 
 }

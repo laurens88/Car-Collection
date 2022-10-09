@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -401,6 +402,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getDistinctColors(){
         String query = "SELECT count(distinct "+COLUMN_COLOR+") from "+TABLE_NAME+" where "+COLUMN_COLOR+" != \"Unknown\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, new String[]{});
+        }
+        return cursorToArrayList(cursor);
+    }
+
+    public ArrayList<String> getDistinctBrands(){
+        String query = "SELECT count(distinct "+COLUMN_BRAND+") from "+TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
