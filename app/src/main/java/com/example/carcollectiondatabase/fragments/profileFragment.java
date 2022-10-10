@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.carcollectiondatabase.DatabaseHelper;
 import com.example.carcollectiondatabase.R;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class profileFragment extends Fragment {
@@ -27,7 +28,7 @@ public class profileFragment extends Fragment {
     ProgressBar colorful;
     ProgressBar million;
     ProgressBar completionist;
-    TextView fastest, fave_brand, oldest, color, completion, millionaire;
+    TextView fastest, fave_brand, oldest, color, completion, millionaire, millionaireTitle;
 
     @SuppressLint("Range")
     @Override
@@ -42,6 +43,7 @@ public class profileFragment extends Fragment {
         color = view.findViewById(R.id.colorProgressText);
         completion = view.findViewById(R.id.textView14);
         millionaire = view.findViewById(R.id.millionProgressText);
+        millionaireTitle = view.findViewById(R.id.MillionaireTitle);
         colorful = view.findViewById(R.id.colorProgress);
         million = view.findViewById(R.id.MillionaireProgress);
         completionist = view.findViewById(R.id.completionistProgress);
@@ -71,10 +73,17 @@ public class profileFragment extends Fragment {
         colorful.setProgress(Math.min(colors, colorful.getMax()));
         color.setText(colors+"/"+13);
 
-        million.setMax(1000000);
-        int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
-        million.setProgress(Math.min(totalValue, 1000000));
-        millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
+
+//        int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
+//        if (totalValue<=1000000){
+//            million.setMax(1000000);
+//            million.setProgress(Math.min(totalValue, 1000000));
+//            millionaire.setText(Math.min(totalValue, 1000000) / 10000 + "%1");
+//        }else {
+//            million.setMax(5000000);
+//            million.setProgress(Math.min(totalValue, 5000000));
+//            millionaire.setText(Math.min(totalValue, 5000000) / 50000 + "%5");
+//        }
 
         completionist.setMax(55);
         int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
@@ -90,9 +99,26 @@ public class profileFragment extends Fragment {
         int colors = Integer.parseInt(dbhelper.getDistinctColors().get(0));
         colorful.setProgress(Math.min(colors, 13));
         color.setText(colors+"/"+13);
+
         int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
-        million.setProgress(Math.min(totalValue, 1000000));
-        millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
+        double total = totalValue;
+        if (totalValue<=1000000){
+            million.setMax(1000000);
+            million.setProgress(Math.min(totalValue, 1000000));
+
+            double val = Math.min(total, 1000000)/1000000;
+            millionaire.setText(new BigDecimal(val).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() +"M/1M");
+
+            millionaireTitle.setText("Millionaire motorist");
+
+        }else {
+            million.setMax(5000000);
+            million.setProgress(Math.min(totalValue, 5000000));
+            double val5 = Math.min(total, 5000000) / 1000000;
+            millionaire.setText(new BigDecimal(val5).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "M/5M");
+            millionaireTitle.setText("Millionaire motorist 2");
+        }
+
         int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
         completionist.setProgress(Math.min(brands, 55));
         completion.setText(brands+"/"+55);

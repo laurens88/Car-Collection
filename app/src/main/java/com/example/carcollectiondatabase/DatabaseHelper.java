@@ -411,7 +411,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int getTotalValue(ArrayList<String> prices){
         int sum = 0;
         for(String price : prices){
-            sum += Integer.parseInt(price.replaceAll("\\.|€|\\,|-",""));
+            if(!price.equals("")) {
+                sum += Integer.parseInt(price.replaceAll("\\.|€|,|-", ""));
+            }
         }
         return sum;
     }

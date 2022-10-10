@@ -198,7 +198,7 @@ public class UpdateActivity extends AppCompatActivity {
                 }
                 rank_input.setFocusableInTouchMode(false);
                 rank_input.clearFocus();
-                rank_input.setText(rank);
+                rank_input.setText(formatRank(rank));
                 plate_input.setFocusableInTouchMode(false);
                 plate_input.clearFocus();
                 plate_input.setText(formatPlate(originalPlate));
