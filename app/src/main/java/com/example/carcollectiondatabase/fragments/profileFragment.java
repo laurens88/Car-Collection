@@ -49,9 +49,9 @@ public class profileFragment extends Fragment {
 
         DatabaseHelper dbhelper = new DatabaseHelper(getContext());
 
-        ArrayList<String> fastestEntry = dbhelper.searchFastest();
-        if (fastestEntry.get(1) != null && fastestEntry.get(2) != null) {
-            fastest.setText(fastestEntry.get(1) + " " + fastestEntry.get(2));
+        String fastestEntry = dbhelper.searchFastest();
+        if (fastestEntry != null) {
+            fastest.setText(fastestEntry);
         }else{
             Toast.makeText(getContext(), "Add some cars first", Toast.LENGTH_SHORT).show();
         }
@@ -76,10 +76,10 @@ public class profileFragment extends Fragment {
         million.setProgress(Math.min(totalValue, 1000000));
         millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
 
-        completionist.setMax(40);
+        completionist.setMax(55);
         int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
-        completionist.setProgress(Math.min(brands, 40));
-        completion.setText(brands+"/"+40);
+        completionist.setProgress(Math.min(brands, 55));
+        completion.setText(brands+"/"+55);
 
         return view;
     }
@@ -94,8 +94,8 @@ public class profileFragment extends Fragment {
         million.setProgress(Math.min(totalValue, 1000000));
         millionaire.setText(Math.min(totalValue,1000000)/10000+"%");
         int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
-        completionist.setProgress(Math.min(brands, 40));
-        completion.setText(brands+"/"+40);
+        completionist.setProgress(Math.min(brands, 55));
+        completion.setText(brands+"/"+55);
         super.onResume();
     }
 

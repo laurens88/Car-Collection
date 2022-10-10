@@ -359,15 +359,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public ArrayList<String> searchFastest(){
-        String query = "SELECT *, min(car_rank) FROM " + TABLE_NAME +" where car_rank > 0";
+    public String searchFastest(){
+        String query = "SELECT car_brand, car_type, car_rank FROM " + TABLE_NAME +" where car_rank > 0";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
         if(db != null){
             cursor = db.rawQuery(query, new String[]{});
         }
-        return cursorToArrayList(cursor);
+
+        ArrayList<String> ranking = cursorToArrayList(cursor);
+        ArrayList<String> rankedCars = new ArrayList<>();
+        ArrayList<Integer> rankedRanks = new ArrayList<>();
+        int lowestRank = Integer.MAX_VALUE;
+        int pos = 0;
+        for(int i = 0; i<ranking.size();i = i+3) {
+            rankedCars.add(ranking.get(i) +" "+ ranking.get(i+1));
+            rankedRanks.add(Integer.parseInt(ranking.get(i+2)));
+        }
+        for(int i = 0; i<rankedRanks.size(); i++){
+            if (rankedRanks.get(i) < lowestRank){
+                lowestRank = rankedRanks.get(i);
+                pos = i;
+            }
+        }
+        return rankedCars.get(pos);
     }
 
     public ArrayList<String> searchMostFrequentBrand(){
