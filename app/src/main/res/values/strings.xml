@@ -5,4 +5,20 @@
     <string name="title_activity_display">DisplayActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string-array name="colors">
+        <item></item>
+        <item>Black</item>
+        <item>Grey</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Brown</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Cream</item>
+        <item>Multi color</item>
+    </string-array>
 </resources>

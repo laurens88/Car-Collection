@@ -16,8 +16,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class UpdateActivity extends AppCompatActivity {
             originalColor, originalYear, originalAcc, originalTopspeed;
 
     ActionBar ab;
+
+    Spinner spinner;
 
     ArrayList<String> data;
 
@@ -70,6 +74,12 @@ public class UpdateActivity extends AppCompatActivity {
         update_button = findViewById(R.id.update_entry);
         cancel_button = findViewById(R.id.cancel_button);
 
+        spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colors, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinner.setAdapter(adapter);
+        spinner.setVisibility(View.GONE);
+
         update_button.setVisibility(View.GONE);
         cancel_button.setVisibility(View.GONE);
 
@@ -90,7 +100,8 @@ public class UpdateActivity extends AppCompatActivity {
                 plate = plate_input.getText().toString().trim().replaceAll("-","");
                 price = price_input.getText().toString().trim();
                 power = power_input.getText().toString().trim();
-                color = color_input.getText().toString().trim();
+//                color = color_input.getText().toString().trim();
+                color = spinner.getSelectedItem().toString();
                 year = year_input.getText().toString().trim();
                 acceleration = acceleration_input.getText().toString().trim();
                 topspeed = topspeed_input.getText().toString().trim();
@@ -140,6 +151,7 @@ public class UpdateActivity extends AppCompatActivity {
 
                 update_button.setVisibility(View.GONE);
                 cancel_button.setVisibility(View.GONE);
+                spinner.setVisibility(View.GONE);
                 brand_input.setFocusableInTouchMode(false);
                 brand_input.clearFocus();
                 brand_input.setText(brand);
@@ -159,6 +171,7 @@ public class UpdateActivity extends AppCompatActivity {
                 power_input.setFocusableInTouchMode(false);
                 power_input.clearFocus();
                 power_input.setText(power);
+                color_input.setVisibility(View.VISIBLE);
                 color_input.setFocusableInTouchMode(false);
                 color_input.clearFocus();
                 if (color.equals("Unknown")){
@@ -361,7 +374,39 @@ public class UpdateActivity extends AppCompatActivity {
                 edition_input.setFocusableInTouchMode(true);
                 price_input.setFocusableInTouchMode(true);
                 power_input.setFocusableInTouchMode(true);
-                color_input.setFocusableInTouchMode(true);
+//                color_input.setFocusableInTouchMode(true);
+                color_input.setVisibility(View.GONE);
+                spinner.setVisibility(View.VISIBLE);
+                String color = color_input.getText().toString();
+                switch (color){
+                    case "Black": spinner.setSelection(1);
+                        break;
+                    case "Grey": spinner.setSelection(2);
+                        break;
+                    case "White": spinner.setSelection(3);
+                        break;
+                    case "Blue": spinner.setSelection(4);
+                        break;
+                    case "Red": spinner.setSelection(5);
+                        break;
+                    case "Brown": spinner.setSelection(6);
+                        break;
+                    case "Green": spinner.setSelection(7);
+                        break;
+                    case "Yellow": spinner.setSelection(8);
+                        break;
+                    case "Orange": spinner.setSelection(9);
+                        break;
+                    case "Pink": spinner.setSelection(10);
+                        break;
+                    case "Purple": spinner.setSelection(11);
+                        break;
+                    case "Cream": spinner.setSelection(12);
+                        break;
+                    case "Multi color": spinner.setSelection(13);
+                        break;
+                    default: spinner.setSelection(0);
+                }
                 year_input.setFocusableInTouchMode(true);
                 acceleration_input.setFocusableInTouchMode(true);
                 topspeed_input.setFocusableInTouchMode(true);
