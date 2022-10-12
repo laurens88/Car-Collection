@@ -62,7 +62,11 @@ public class DisplayActivity extends AppCompatActivity {
         acceleration.setText("0-100: " + accelerationString);
         topspeed.setText("Top speed: " + topspeedString);
         horsepower.setText("Power: " + power);
-        ranking.setText("Rank: "+ formatRank(rankString) +" vehicles faster (NL)");
+        if (rankString.equals("")){
+            ranking.setText("Rank: Unknown");
+        }else {
+            ranking.setText("Rank: " + formatRank(rankString) + " vehicles faster (NL)");
+        }
         plate.setText(formatPlate(plateString));
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +124,9 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     String formatRank(String rank){
+        if (rank.equals("")){
+            return rank;
+        }
         NumberFormat format = NumberFormat.getInstance();
         format.setGroupingUsed(true);
 

@@ -9,8 +9,8 @@ android {
         applicationId "com.laurens.carcollectiondatabase"
         minSdk 26
         targetSdk 32
-        versionCode 10
-        versionName "10.0"
+        versionCode 12
+        versionName "10.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -104,6 +104,7 @@ public class Crawler {
         if (raw.equals("Niet geregistreerd") || raw.equals("Onbekend")){
             return "Unknown";
         }
+        raw = raw.replaceAll("&quot;","\"");
         return raw.replaceAll("km/u", "km/h");
     }
 
@@ -183,6 +184,12 @@ public class Crawler {
                     return data;
                 }
 
+                if (line.contains("Met de kentekencheck in 1 stap alle")){
+                    data.add("");
+                    in.close();
+                    return data;
+                }
+
                 //Brand
                 if (line_counter == brand) {
                     data.add(line.replaceAll("Citroen", "Citroën"));
@@ -209,7 +216,7 @@ public class Crawler {
                 }
                 //0-100
                 if (line_counter == acc) {
-                    data.add(translate(clean_data(line)));
+                    data.add(translate(clean_data(line)).replaceAll(",","\\."));
                 }
                 //Top
                 if (line_counter == top) {

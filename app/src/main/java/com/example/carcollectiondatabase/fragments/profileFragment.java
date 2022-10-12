@@ -52,6 +52,7 @@ public class profileFragment extends Fragment {
         DatabaseHelper dbhelper = new DatabaseHelper(getContext());
 
         String fastestEntry = dbhelper.searchFastest();
+        System.out.println(fastestEntry);
         if (fastestEntry != null) {
             fastest.setText(fastestEntry);
         }else{
@@ -102,22 +103,23 @@ public class profileFragment extends Fragment {
 
         int totalValue = dbhelper.getTotalValue(dbhelper.getPrices());
         double total = totalValue;
-        if (totalValue<=1000000){
+        if (totalValue <= 1000000) {
             million.setMax(1000000);
             million.setProgress(Math.min(totalValue, 1000000));
 
-            double val = Math.min(total, 1000000)/1000000;
-            millionaire.setText(new BigDecimal(val).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() +"M/1M");
+            double val = Math.min(total, 1000000) / 1000000;
+            millionaire.setText(new BigDecimal(val).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "M/1M");
 
             millionaireTitle.setText("Millionaire motorist");
 
-        }else {
+        } else {
             million.setMax(5000000);
             million.setProgress(Math.min(totalValue, 5000000));
             double val5 = Math.min(total, 5000000) / 1000000;
             millionaire.setText(new BigDecimal(val5).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "M/5M");
             millionaireTitle.setText("Millionaire motorist 2");
         }
+
 
         int brands = Integer.parseInt(dbhelper.getDistinctBrands().get(0));
         completionist.setProgress(Math.min(brands, 55));

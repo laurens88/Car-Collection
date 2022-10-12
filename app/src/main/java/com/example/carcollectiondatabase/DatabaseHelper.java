@@ -369,21 +369,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         ArrayList<String> ranking = cursorToArrayList(cursor);
-        ArrayList<String> rankedCars = new ArrayList<>();
-        ArrayList<Integer> rankedRanks = new ArrayList<>();
-        int lowestRank = Integer.MAX_VALUE;
-        int pos = 0;
-        for(int i = 0; i<ranking.size();i = i+3) {
-            rankedCars.add(ranking.get(i) +" "+ ranking.get(i+1));
-            rankedRanks.add(Integer.parseInt(ranking.get(i+2)));
-        }
-        for(int i = 0; i<rankedRanks.size(); i++){
-            if (rankedRanks.get(i) < lowestRank){
-                lowestRank = rankedRanks.get(i);
-                pos = i;
+        if (!ranking.isEmpty()) {
+            ArrayList<String> rankedCars = new ArrayList<>();
+            ArrayList<Integer> rankedRanks = new ArrayList<>();
+            int lowestRank = Integer.MAX_VALUE;
+            int pos = 0;
+            for (int i = 0; i < ranking.size(); i = i + 3) {
+                rankedCars.add(ranking.get(i) + " " + ranking.get(i + 1));
+                rankedRanks.add(Integer.parseInt(ranking.get(i + 2)));
             }
+            for (int i = 0; i < rankedRanks.size(); i++) {
+                if (rankedRanks.get(i) < lowestRank) {
+                    lowestRank = rankedRanks.get(i);
+                    pos = i;
+                }
+            }
+            return rankedCars.get(pos);
+        }else{
+            return "No ranked vehicles in database";
         }
-        return rankedCars.get(pos);
     }
 
     public ArrayList<String> searchMostFrequentBrand(){

@@ -275,7 +275,7 @@ public class UpdateActivity extends AppCompatActivity {
             }else{
                 topspeed_input.setText(topspeed);
             }
-            if (rank.equals("null") || rank.equals("")){
+            if (rank.equals("null") || rank.equals("") || rank.equals("Unknown")){
                 rank_input.setText("");
             }else {
                 rank_input.setText(formatRank(rank.replaceAll("\\.", "")));
@@ -293,7 +293,6 @@ public class UpdateActivity extends AppCompatActivity {
     String formatPlate(String plate){
         String formattedPlate = "";
         plate = plate.replaceAll("-","");
-        System.out.println(plate);
         int dash_count = 0;
         for (int i = 0; i<plate.length()-1 && dash_count <= 2;i++){
 
