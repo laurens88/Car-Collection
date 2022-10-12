@@ -13,8 +13,7 @@
             android:layout_height="wrap_content"
             android:text="Brand"
             android:textSize="42dp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:textStyle="bold" />
 
 
         <TextView
@@ -23,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/brandD"
             android:text="Type"
-            android:textColor="@color/white"
             android:textSize="32dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/editionD" />
@@ -53,7 +51,6 @@
             android:layout_below="@+id/typeD"
             android:layout_marginBottom="12dp"
             android:text=""
-            android:textColor="@color/white"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/priceD"
@@ -66,7 +63,6 @@
             android:layout_below="@+id/editionD"
             android:layout_marginBottom="12dp"
             android:text="Price: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/horsepowerD"
@@ -79,7 +75,6 @@
             android:layout_below="@+id/priceD"
             android:layout_marginBottom="12dp"
             android:text="Power: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/colorD"
@@ -92,7 +87,6 @@
             android:layout_below="@+id/horsepowerD"
             android:layout_marginBottom="12dp"
             android:text="Color: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/yearD"
@@ -105,7 +99,6 @@
             android:layout_below="@id/colorD"
             android:layout_marginBottom="12dp"
             android:text="Year: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/accelerationD"
@@ -118,7 +111,6 @@
             android:layout_below="@id/yearD"
             android:layout_marginBottom="12dp"
             android:text="0-100: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/topspeedD"
@@ -131,7 +123,6 @@
             android:layout_below="@id/accelerationD"
             android:layout_marginBottom="12dp"
             android:text="Top speed: "
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/rankingD"
@@ -143,7 +134,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/topspeedD"
             android:text="Ranking:"
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -158,7 +148,8 @@
             android:layout_marginEnd="8dp"
             android:focusable="false"
             android:hint="License plate"
-            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/savebutton"
             app:layout_constraintEnd_toStartOf="@+id/savebutton"
             app:layout_constraintTop_toTopOf="@+id/savebutton"
@@ -170,14 +161,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/editplateD"
-            android:backgroundTint="@color/teal_200"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"
             android:text="Add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.78"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.692" />
+            app:layout_constraintVertical_bias="0.692"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

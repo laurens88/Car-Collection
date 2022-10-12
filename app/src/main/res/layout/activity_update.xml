@@ -22,7 +22,8 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.055"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editType2"
@@ -37,7 +38,8 @@
         app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.055"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editPlate2"
@@ -53,7 +55,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.633"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editEdition"
@@ -68,7 +71,8 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.18"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editPrice2"
@@ -84,7 +88,8 @@
         app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.18"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editColor2"
@@ -100,7 +105,8 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.304"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editYear2"
@@ -116,7 +122,8 @@
         app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.304"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editAcceleration"
@@ -132,7 +139,8 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintVertical_bias="0.425"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editTopspeed"
@@ -148,7 +156,8 @@
         app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintVertical_bias="0.425"
+        android:backgroundTint="@color/black_overlay"/>
 
 
     <EditText
@@ -165,7 +174,8 @@
         app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintVertical_bias="0.54"
+        android:backgroundTint="@color/black_overlay"/>
 
     <EditText
         android:id="@+id/editRanking"
@@ -181,7 +191,8 @@
         app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintVertical_bias="0.54"
+        android:backgroundTint="@color/black_overlay"/>
 
     <Button
         android:id="@+id/update_entry"
@@ -194,7 +205,9 @@
         app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.633"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textView"
@@ -295,7 +308,9 @@
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.633"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"/>
 
     <Spinner
         android:id="@+id/spinner"
