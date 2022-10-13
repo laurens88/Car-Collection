@@ -95,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_BRAND, brand);
         cv.put(COLUMN_TYPE, type);
+        cv.put(COLUMN_NOTE, "");
 
         long result = db.insert(TABLE_NAME, null, cv);
         if(result == -1){
@@ -124,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_ACCELERATION, acc);
         cv.put(COLUMN_TOPSPEED, topspeed);
         cv.put(COLUMN_RANK, rank);
+        cv.put(COLUMN_NOTE, "");
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (vehicle.equals("car")) {
@@ -169,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_ACCELERATION, car_data.get(5));
         cv.put(COLUMN_TOPSPEED, car_data.get(6));
         cv.put(COLUMN_RANK, car_data.get(9));
+        cv.put(COLUMN_NOTE, "");
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (vehicleType.equals("car")) {
@@ -317,7 +320,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Entry updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Updated successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -345,7 +348,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1){
             Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Entry updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Updated successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -361,7 +364,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor search(String term){
-        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+"UPPER("+COLUMN_BRAND+") = ?";
+        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+"UPPER("+COLUMN_BRAND+") = ? order by "+COLUMN_TYPE;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -409,7 +412,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             return rankedCars.get(pos);
         }else{
-            return "No ranked vehicles in database";
+            return "";
         }
     }
 

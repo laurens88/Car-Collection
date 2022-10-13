@@ -51,6 +51,15 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/brand_text"
                 app:layout_constraintTop_toBottomOf="@+id/brand_text" />
+
+            <TextView
+                android:id="@+id/note_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Note"
+                android:textColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -24,7 +24,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    TabLayout tabLayout;
+    public static TabLayout tabLayout;
+    public static Boolean fromUpdate = false;
     ViewPager2 viewPager2;
     ViewPagerAdapter viewPagerAdapter;
 
@@ -70,6 +71,19 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        if (fromUpdate){
+            setTab(1);
+            fromUpdate = false;
+        }
+        super.onResume();
+    }
+
+    public static void setTab(int position){
+        tabLayout.getTabAt(position).select();
     }
 
 

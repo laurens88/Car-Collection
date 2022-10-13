@@ -115,9 +115,11 @@ public class UpdateActivity extends AppCompatActivity {
                 if (plate.equals("")){
                     dbheper.updateWithoutPlate(id, brand, type, edition, price, power, color,
                             year, acceleration, topspeed, rank, note);
-                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), ListFragment.class);
+//                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+                    MainActivity.fromUpdate = true;
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
+//                    MainActivity.setTab(2);
 
                 }else{
                 Crawler c = new Crawler();
@@ -136,10 +138,10 @@ public class UpdateActivity extends AppCompatActivity {
                     dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
                             topspeed, rank, note);
 
-                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), ListFragment.class);
-                    startActivityForResult(intent, 1);
-//                    startActivity(intent);
+                    MainActivity.fromUpdate = true;
+                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                    startActivity(intent);
+//                    MainActivity.setTab(2);
 
                 }
 
@@ -209,6 +211,8 @@ public class UpdateActivity extends AppCompatActivity {
                 plate_input.clearFocus();
                 plate_input.setText(formatPlate(originalPlate));
                 note_input.setText(note);
+                note_input.setFocusable(false);
+                note_input.clearFocus();
                 ab.setTitle("");
             }
         });
@@ -288,7 +292,7 @@ public class UpdateActivity extends AppCompatActivity {
             }else {
                 rank_input.setText(formatRank(rank.replaceAll("\\.", "")));
             }
-            if (note.equals("null") || rank.equals("")){
+            if (note.equals("null") || note.equals("")){
                 note_input.setText("");
             }else {
                 note_input.setText(note);

@@ -64,7 +64,8 @@ public class AddActivity extends AppCompatActivity {
                     }
                     else {
                         dbhelper.addCarManually(brand_input.getText().toString().trim(), type_input.getText().toString().trim());
-                        Intent intent = new Intent(getBaseContext(), ListFragment.class);
+                        MainActivity.fromUpdate = true;
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
                         activityResultLauncher.launch(intent);
                         brand_input.setText("");
                         type_input.setText("");
@@ -81,7 +82,8 @@ public class AddActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
                             } else {
                                 dbhelper.addCarPlate(plate, car_data.get(0));
-                                Intent intent = new Intent(getBaseContext(), ListFragment.class);
+                                MainActivity.fromUpdate = true;
+                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(intent);
                             }
                         } catch (IOException e) {

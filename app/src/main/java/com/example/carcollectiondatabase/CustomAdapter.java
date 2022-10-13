@@ -69,6 +69,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.car_count_txt.setText(String.valueOf(count.get(position)));
         holder.brand_txt.setText(String.valueOf(brand.get(position)));
         holder.type_txt.setText(String.valueOf(type.get(position)));
+        holder.note_text.setText(String.valueOf(note.get(position)));
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +99,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView car_count_txt, brand_txt, type_txt;
+        TextView car_count_txt, brand_txt, type_txt, note_text;
         LinearLayout mainLayout;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -106,6 +107,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             car_count_txt = itemView.findViewById(R.id.car_count_txt);
             brand_txt = itemView.findViewById(R.id.brand_text);
             type_txt = itemView.findViewById(R.id.type_text);
+            note_text = itemView.findViewById(R.id.note_text);
+
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
