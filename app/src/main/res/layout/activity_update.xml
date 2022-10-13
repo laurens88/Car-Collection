@@ -8,7 +8,6 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-19dp">
 
-
     <EditText
         android:id="@+id/editBrand2"
         android:layout_width="160dp"
@@ -45,18 +44,47 @@
         android:id="@+id/editPlate2"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/black_overlay"
+        android:digits="BCDFGHJKLMNPQRSTVWXYZ-0123456789"
         android:ems="10"
         android:hint="License Plate"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:digits="BCDFGHJKLMNPQRSTVWXYZ-0123456789"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633"
-        android:backgroundTint="@color/black_overlay"/>
+        app:layout_constraintVertical_bias="0.736" />
+
+    <Button
+        android:id="@+id/update_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Update"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.736" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Cancel"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/update_entry"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.736" />
 
     <EditText
         android:id="@+id/editEdition"
@@ -178,6 +206,23 @@
         android:backgroundTint="@color/black_overlay"/>
 
     <EditText
+        android:id="@+id/editNote"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:backgroundTint="@color/black_overlay"
+        android:digits="0123456789 abcdefghijklmnopqrstuvwxyz!?.,/ ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:ems="10"
+        android:hint="Note"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <EditText
         android:id="@+id/editRanking"
         android:layout_width="160dp"
         android:layout_height="45dp"
@@ -194,26 +239,10 @@
         app:layout_constraintVertical_bias="0.54"
         android:backgroundTint="@color/black_overlay"/>
 
-    <Button
-        android:id="@+id/update_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/white"/>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="Brand"
         app:layout_constraintBottom_toTopOf="@+id/editBrand2"
         app:layout_constraintStart_toStartOf="@+id/editBrand2" />
@@ -222,7 +251,6 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="Type"
         app:layout_constraintBottom_toTopOf="@+id/editType2"
         app:layout_constraintStart_toStartOf="@+id/editType2" />
@@ -231,7 +259,6 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="Price"
         app:layout_constraintBottom_toTopOf="@+id/editPrice2"
         app:layout_constraintStart_toStartOf="@+id/editPrice2" />
@@ -240,7 +267,6 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="Power"
         app:layout_constraintBottom_toTopOf="@+id/editPower2"
         app:layout_constraintStart_toStartOf="@+id/editPower2" />
@@ -259,7 +285,6 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="Year"
         app:layout_constraintBottom_toTopOf="@+id/editYear2"
         app:layout_constraintStart_toStartOf="@+id/editYear2" />
@@ -268,7 +293,6 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="0-100 in"
         app:layout_constraintBottom_toTopOf="@+id/editAcceleration"
         app:layout_constraintStart_toStartOf="@+id/editAcceleration" />
@@ -277,7 +301,6 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="Top speed"
         app:layout_constraintBottom_toTopOf="@+id/editTopspeed"
         app:layout_constraintStart_toStartOf="@+id/editTopspeed" />
@@ -298,20 +321,6 @@
         app:layout_constraintBottom_toTopOf="@+id/editEdition"
         app:layout_constraintStart_toStartOf="@+id/editEdition" />
 
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/update_entry"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/white"/>
-
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="178dp"
@@ -324,5 +333,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.303" />
+
+    <TextView
+        android:id="@+id/noteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note"
+        app:layout_constraintBottom_toTopOf="@+id/editNote"
+        app:layout_constraintStart_toStartOf="@+id/editNote" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

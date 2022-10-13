@@ -8,6 +8,8 @@ import androidx.fragment.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SyncStats;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.icu.text.SymbolTable;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -29,10 +31,11 @@ import java.util.ArrayList;
 public class UpdateActivity extends AppCompatActivity {
 
     EditText brand_input, type_input, edition_input, plate_input, price_input, power_input, color_input,
-            year_input, acceleration_input, topspeed_input, rank_input;
+            year_input, acceleration_input, topspeed_input, rank_input, note_input;
     Button update_button, cancel_button;
 
-    String id, brand, type, edition, plate, price, power, color, year, acceleration, topspeed, rank;
+    String id, brand, type, edition, plate, price, power, color, year, acceleration,
+            topspeed, rank, note;
 
     String originalType, originalEdition, originalPlate, originalPrice, originalPower,
             originalColor, originalYear, originalAcc, originalTopspeed;
@@ -70,14 +73,16 @@ public class UpdateActivity extends AppCompatActivity {
         topspeed_input.setFocusable(false);
         rank_input = findViewById(R.id.editRanking);
         rank_input.setFocusable(false);
+        note_input = findViewById(R.id.editNote);
 
         update_button = findViewById(R.id.update_entry);
         cancel_button = findViewById(R.id.cancel_button);
 
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colors, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.custom_spinner);
         spinner.setAdapter(adapter);
+        spinner.getBackground().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
         spinner.setVisibility(View.GONE);
 
         update_button.setVisibility(View.GONE);
@@ -100,16 +105,16 @@ public class UpdateActivity extends AppCompatActivity {
                 plate = plate_input.getText().toString().trim().replaceAll("-","");
                 price = price_input.getText().toString().trim();
                 power = power_input.getText().toString().trim();
-//                color = color_input.getText().toString().trim();
-                color = spinner.getSelectedItem().toString();
+                color = spinner.getSelectedItem().toString().replaceAll("Select color", "Unknown");
                 year = year_input.getText().toString().trim();
                 acceleration = acceleration_input.getText().toString().trim();
                 topspeed = topspeed_input.getText().toString().trim();
                 rank = rank_input.getText().toString().trim();
+                note = note_input.getText().toString().trim();
 
                 if (plate.equals("")){
                     dbheper.updateWithoutPlate(id, brand, type, edition, price, power, color,
-                            year, acceleration, topspeed, rank);
+                            year, acceleration, topspeed, rank, note);
                     Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), ListFragment.class);
                     startActivity(intent);
@@ -129,11 +134,12 @@ public class UpdateActivity extends AppCompatActivity {
                 }else {
 
                     dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
-                            topspeed, rank);
+                            topspeed, rank, note);
 
                     Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), ListFragment.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
+//                    startActivity(intent);
 
                 }
 
@@ -202,6 +208,7 @@ public class UpdateActivity extends AppCompatActivity {
                 plate_input.setFocusableInTouchMode(false);
                 plate_input.clearFocus();
                 plate_input.setText(formatPlate(originalPlate));
+                note_input.setText(note);
                 ab.setTitle("");
             }
         });
@@ -214,7 +221,7 @@ public class UpdateActivity extends AppCompatActivity {
                 && getIntent().hasExtra("power") && getIntent().hasExtra("color")
                 && getIntent().hasExtra("year") && getIntent().hasExtra("plate")
                 && getIntent().hasExtra("acceleration") && getIntent().hasExtra("topspeed")
-                && getIntent().hasExtra("rank")){
+                && getIntent().hasExtra("rank") && getIntent().hasExtra("note")){
             id = getIntent().getStringExtra("id");
             brand = getIntent().getStringExtra("brand");
             type = getIntent().getStringExtra("type");
@@ -236,6 +243,7 @@ public class UpdateActivity extends AppCompatActivity {
             topspeed = getIntent().getStringExtra("topspeed");
             originalTopspeed = topspeed;
             rank = getIntent().getStringExtra("rank");
+            note = getIntent().getStringExtra("note");
 
             brand_input.setText(brand);
             type_input.setText(type);
@@ -257,7 +265,7 @@ public class UpdateActivity extends AppCompatActivity {
                 power_input.setText("");
             }else{
                 power_input.setText(power);}
-            if (color.equals("null") || color.equals("Unknown")){
+            if (color.equals("null") || color.equals("Unknown") || color.equals("Select color")){
                 color_input.setText("");
             }else{
                 color_input.setText(color);}
@@ -279,6 +287,11 @@ public class UpdateActivity extends AppCompatActivity {
                 rank_input.setText("");
             }else {
                 rank_input.setText(formatRank(rank.replaceAll("\\.", "")));
+            }
+            if (note.equals("null") || rank.equals("")){
+                note_input.setText("");
+            }else {
+                note_input.setText(note);
             }
 
             InputFilter[] filterArray = new InputFilter[2];

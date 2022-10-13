@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ACCELERATION = "car_acceleration";
     private static final String COLUMN_TOPSPEED = "car_topspeed";
     private static final String COLUMN_RANK = "car_rank";
+    private static final String COLUMN_NOTE = "car_note";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,6 +65,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public void addColumn(String column_name){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+TABLE_NAME, null);
+        String[] columnNames = cursor.getColumnNames();
+        Boolean columnPresent = false;
+        for (int i = 0; i<columnNames.length; i++){
+            if (column_name.equals(columnNames[i])){
+                columnPresent = true;
+            }
+        }
+        SQLiteDatabase dbw = this.getWritableDatabase();
+        if (!columnPresent){
+            db.execSQL("alter table carTable add column "+column_name+" text");
+
+        }
     }
 
     public void removeAll(){
@@ -180,8 +198,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void updataData(String row_id, String brand, String type, String edition, String plate, String price, String power, String color, String year,
-                    String acceleration, String topspeed, String rank){
+    void updataData(String row_id, String brand, String type, String edition, String plate,
+                    String price, String power, String color, String year,
+                    String acceleration, String topspeed, String rank, String note){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -198,6 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put(COLUMN_ACCELERATION, acceleration);
             cv.put(COLUMN_TOPSPEED, topspeed);
             cv.put(COLUMN_RANK, rank);
+            cv.put(COLUMN_NOTE, note);
         }else{
             Crawler c = new Crawler();
             try {
@@ -286,6 +306,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     }else {
                         cv.put(COLUMN_RANK, crawlRank);
                     }
+                    cv.put(COLUMN_NOTE, note);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -301,7 +322,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     void updateWithoutPlate(String row_id, String brand, String type, String edition, String price,
-                            String power, String color, String year, String acceleration, String topspeed, String rank) {
+                            String power, String color, String year, String acceleration,
+                            String topspeed, String rank, String note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -317,6 +339,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_ACCELERATION, acceleration);
         cv.put(COLUMN_TOPSPEED, topspeed);
         cv.put(COLUMN_RANK, rank);
+        cv.put(COLUMN_NOTE, note);
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
         if(result == -1){

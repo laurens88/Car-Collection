@@ -20,7 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private Context context;
     Activity activity;
     private ArrayList car_id, brand, type, edition, plate, count, price, power, color, year,
-            acceleration, topspeed, rank;
+            acceleration, topspeed, rank, note;
 
 
     public CustomAdapter(Activity activity, Context context,
@@ -36,7 +36,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                          ArrayList year,
                          ArrayList acceleration,
                          ArrayList topspeed,
-                         ArrayList rank){
+                         ArrayList rank,
+                         ArrayList note){
         this.activity = activity;
         this.car_id = car_id;
         this.context = context;
@@ -52,6 +53,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.acceleration = acceleration;
         this.topspeed = topspeed;
         this.rank = rank;
+        this.note = note;
     }
 
     @NonNull
@@ -83,6 +85,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("acceleration", String.valueOf(acceleration.get(position)));
                 intent.putExtra("topspeed", String.valueOf(topspeed.get(position)));
                 intent.putExtra("rank", String.valueOf(rank.get(position)));
+                intent.putExtra("note", String.valueOf(note.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });

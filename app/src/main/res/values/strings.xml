@@ -6,7 +6,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string-array name="colors">
-        <item></item>
+        <item>Select color</item>
         <item>Black</item>
         <item>Grey</item>
         <item>White</item>

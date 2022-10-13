@@ -35,8 +35,10 @@ public class listFragment extends Fragment {
     RecyclerView recyclerView;
 
     DatabaseHelper dbhelper;
-    ArrayList<String> car_id, brand, type, edition, plate, count, price, power, color, year, acceleration, topspeed, rank;
-    ArrayList<String> car_id2, brand2, type2, edition2, plate2, count2, price2, power2, color2, year2, acceleration2, topspeed2, rank2;
+    ArrayList<String> car_id, brand, type, edition, plate, count, price, power,
+            color, year, acceleration, topspeed, rank, note;
+    ArrayList<String> car_id2, brand2, type2, edition2, plate2, count2, price2, power2,
+            color2, year2, acceleration2, topspeed2, rank2, note2;
 
     CustomAdapter customAdapter;
 
@@ -50,6 +52,7 @@ public class listFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         add_button = view.findViewById(R.id.add_button);
         dbhelper = new DatabaseHelper(getContext());
+        dbhelper.addColumn("car_note");
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +74,7 @@ public class listFragment extends Fragment {
         acceleration = new ArrayList<>();
         topspeed = new ArrayList<>();
         rank = new ArrayList<>();
+        note = new ArrayList<>();
 
         car_id2 = new ArrayList<>();
         brand2 = new ArrayList<>();
@@ -85,11 +89,12 @@ public class listFragment extends Fragment {
         acceleration2 = new ArrayList<>();
         topspeed2 = new ArrayList<>();
         rank2 = new ArrayList<>();
+        note2 = new ArrayList<>();
 
         storeDataInArrays();
 
         customAdapter = new CustomAdapter(getActivity(), getContext(), car_id, brand, type, edition, plate,
-                count, price, power, color, year, acceleration, topspeed, rank);
+                count, price, power, color, year, acceleration, topspeed, rank, note);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -148,6 +153,7 @@ public class listFragment extends Fragment {
                     acceleration.add(cursor.getString(10));
                     topspeed.add(cursor.getString(11));
                     rank.add(cursor.getString(12));
+                    note.add(cursor.getString(13));
                     car_count += 1;
                 }
         }
@@ -156,7 +162,7 @@ public class listFragment extends Fragment {
     void storeSearchData(String searchTerm, Boolean submit){
         if (searchTerm.equals("")) {
             customAdapter = new CustomAdapter(getActivity(), getContext(), car_id, brand, type, edition, plate,
-                    count, price, power, color, year, acceleration, topspeed, rank);
+                    count, price, power, color, year, acceleration, topspeed, rank, note);
             recyclerView.setAdapter(customAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }else{
@@ -178,6 +184,7 @@ public class listFragment extends Fragment {
             acceleration2.clear();
             topspeed2.clear();
             rank2.clear();
+            note2.clear();
             if (submit){
             Toast.makeText(getContext(), searchTerm+" not found", Toast.LENGTH_SHORT).show();
             }
@@ -196,6 +203,7 @@ public class listFragment extends Fragment {
                 acceleration2.clear();
                 topspeed2.clear();
                 rank2.clear();
+                note2.clear();
                 while (mergeCursor.moveToNext()) {
                     car_id2.add(mergeCursor.getString(0));
                     brand2.add(mergeCursor.getString(1));
@@ -210,11 +218,13 @@ public class listFragment extends Fragment {
                     acceleration2.add(mergeCursor.getString(10));
                     topspeed2.add(mergeCursor.getString(11));
                     rank2.add(mergeCursor.getString(12));
+                    note2.add(mergeCursor.getString(13));
                     car_count += 1;
                 }
             }
-            customAdapter = new CustomAdapter(getActivity(), getContext(), car_id2, brand2, type2, edition2, plate2,
-                    count2, price2, power2, color2, year2, acceleration2, topspeed2, rank2);
+            customAdapter = new CustomAdapter(getActivity(), getContext(), car_id2, brand2, type2,
+                    edition2, plate2,
+                    count2, price2, power2, color2, year2, acceleration2, topspeed2, rank2, note2);
             recyclerView.setAdapter(customAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }}
