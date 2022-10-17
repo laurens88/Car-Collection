@@ -46,7 +46,7 @@
         android:hint="License plate"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:digits="BCDFGHJKLMNPQRSTVWXYZ-0123456789"
+        android:digits="ABCDFGHJKLMNPQRSTVWXYZ-0123456789"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.447"

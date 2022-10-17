@@ -74,6 +74,7 @@ public class UpdateActivity extends AppCompatActivity {
         rank_input = findViewById(R.id.editRanking);
         rank_input.setFocusable(false);
         note_input = findViewById(R.id.editNote);
+        note_input.setFocusable(false);
 
         update_button = findViewById(R.id.update_entry);
         cancel_button = findViewById(R.id.cancel_button);
@@ -355,7 +356,8 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseHelper dbhelper = new DatabaseHelper(UpdateActivity.this);
                 dbhelper.deleteRow(id);
-                Intent intent = new Intent(getBaseContext(), ListFragment.class);
+                MainActivity.fromUpdate = true;
+                Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -428,6 +430,7 @@ public class UpdateActivity extends AppCompatActivity {
                 topspeed_input.setFocusableInTouchMode(true);
                 rank_input.setFocusableInTouchMode(true);
                 plate_input.setFocusableInTouchMode(true);
+                note_input.setFocusableInTouchMode(true);
                 ab.setTitle("Update " + brand);
             }
         }

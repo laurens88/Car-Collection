@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".DisplayActivity">
+    tools:context=".DisplayActivity"
+    android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/brandD"

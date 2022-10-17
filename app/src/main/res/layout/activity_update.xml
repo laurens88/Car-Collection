@@ -45,7 +45,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black_overlay"
-        android:digits="BCDFGHJKLMNPQRSTVWXYZ-0123456789"
+        android:digits="ABCDFGHJKLMNPQRSTVWXYZ-0123456789"
         android:ems="10"
         android:hint="License Plate"
         android:inputType="textPersonName"

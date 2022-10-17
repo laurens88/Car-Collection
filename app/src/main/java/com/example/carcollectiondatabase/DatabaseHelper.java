@@ -57,7 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_COUNT + " TEXT, " +
                         COLUMN_ACCELERATION + " TEXT, " +
                         COLUMN_TOPSPEED + " TEXT, " +
-                        COLUMN_RANK + " TEXT);";
+                        COLUMN_RANK + " TEXT, " +
+                        COLUMN_NOTE + " TEXT);";
         db.execSQL(query);
     }
 
