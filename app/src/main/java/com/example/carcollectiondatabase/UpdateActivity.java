@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.icu.text.SymbolTable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     EditText brand_input, type_input, edition_input, plate_input, price_input, power_input, color_input,
             year_input, acceleration_input, topspeed_input, rank_input, note_input;
-    Button update_button, cancel_button;
+    Button cancel_button;
 
     String id, brand, type, edition, plate, price, power, color, year, acceleration,
             topspeed, rank, note;
@@ -45,6 +46,10 @@ public class UpdateActivity extends AppCompatActivity {
     Spinner spinner;
 
     ArrayList<String> data;
+
+    ProgressButton2 progressButton2;
+
+    View update_button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,7 @@ public class UpdateActivity extends AppCompatActivity {
         note_input = findViewById(R.id.editNote);
         note_input.setFocusable(false);
 
-        update_button = findViewById(R.id.update_entry);
+//        update_button = findViewById(R.id.update_entry);
         cancel_button = findViewById(R.id.cancel_button);
 
         spinner = findViewById(R.id.spinner);
@@ -86,7 +91,7 @@ public class UpdateActivity extends AppCompatActivity {
         spinner.getBackground().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
         spinner.setVisibility(View.GONE);
 
-        update_button.setVisibility(View.GONE);
+//        update_button.setVisibility(View.GONE);
         cancel_button.setVisibility(View.GONE);
 
         getAndSetData();
@@ -96,9 +101,18 @@ public class UpdateActivity extends AppCompatActivity {
             ab.setTitle("");
         }
 
-        update_button.setOnClickListener(new View.OnClickListener() {
+        update_button2 = findViewById(R.id.update_button);
+        update_button2.setVisibility(View.GONE);
+        update_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressButton2 = new ProgressButton2(getBaseContext(), view);
+
+                if (getCurrentFocus() != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(getBaseContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
+
                 DatabaseHelper dbheper = new DatabaseHelper(UpdateActivity.this);
                 brand = brand_input.getText().toString().trim();
                 type = type_input.getText().toString().trim();
@@ -123,32 +137,92 @@ public class UpdateActivity extends AppCompatActivity {
 //                    MainActivity.setTab(2);
 
                 }else{
-                Crawler c = new Crawler();
-                try {
-                    data = c.getCarDataFast(plate);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if(data.isEmpty()){
-                    Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
-                }else{
-                if (dbheper.getPlates().contains(plate.replaceAll("-","")) && !plate.replaceAll("-", "").equals(originalPlate)){
-                    Toast.makeText(getBaseContext(),"Vehicle already added", Toast.LENGTH_SHORT).show();
-                }else {
+                    Crawler c = new Crawler();
+                    try {
+                        data = c.getCarDataFast(plate);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(data.isEmpty()){
+                        Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if (dbheper.getPlates().contains(plate.replaceAll("-","")) && !plate.replaceAll("-", "").equals(originalPlate)){
+                            Toast.makeText(getBaseContext(),"Vehicle already added", Toast.LENGTH_SHORT).show();
+                        }else {
+                            progressButton2.buttonActivated();
+                            cancel_button.setVisibility(View.GONE);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
+                                            topspeed, rank, note);
 
-                    dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
-                            topspeed, rank, note);
-
-                    MainActivity.fromUpdate = true;
-                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                    startActivity(intent);
-//                    MainActivity.setTab(2);
-
-                }
+                                    MainActivity.fromUpdate = true;
+                                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }, 1);
+                        }
 
 
-            }}}
+                    }}
+            }
         });
+
+//        update_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatabaseHelper dbheper = new DatabaseHelper(UpdateActivity.this);
+//                brand = brand_input.getText().toString().trim();
+//                type = type_input.getText().toString().trim();
+//                edition = edition_input.getText().toString().trim();
+//                plate = plate_input.getText().toString().trim().replaceAll("-","");
+//                price = price_input.getText().toString().trim();
+//                power = power_input.getText().toString().trim();
+//                color = spinner.getSelectedItem().toString().replaceAll("Select color", "Unknown");
+//                year = year_input.getText().toString().trim();
+//                acceleration = acceleration_input.getText().toString().trim();
+//                topspeed = topspeed_input.getText().toString().trim();
+//                rank = rank_input.getText().toString().trim();
+//                note = note_input.getText().toString().trim();
+//
+//                if (plate.equals("")){
+//                    dbheper.updateWithoutPlate(id, brand, type, edition, price, power, color,
+//                            year, acceleration, topspeed, rank, note);
+////                    Toast.makeText(getBaseContext(), "Updated successfully", Toast.LENGTH_SHORT).show();
+//                    MainActivity.fromUpdate = true;
+//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                    startActivity(intent);
+////                    MainActivity.setTab(2);
+//
+//                }else{
+//                Crawler c = new Crawler();
+//                try {
+//                    data = c.getCarDataFast(plate);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                if(data.isEmpty()){
+//                    Toast.makeText(getBaseContext(), "Invalid plate", Toast.LENGTH_SHORT).show();
+//                }else{
+//                if (dbheper.getPlates().contains(plate.replaceAll("-","")) && !plate.replaceAll("-", "").equals(originalPlate)){
+//                    Toast.makeText(getBaseContext(),"Vehicle already added", Toast.LENGTH_SHORT).show();
+//                }else {
+//
+//                    dbheper.updataData(id, brand, type, edition, plate, price, power, color, year, acceleration,
+//                            topspeed, rank, note);
+//
+//                    MainActivity.fromUpdate = true;
+//                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+//                    startActivity(intent);
+////                    MainActivity.setTab(2);
+//
+//                }
+//
+//
+//            }}}
+//        });
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +232,8 @@ public class UpdateActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(UpdateActivity.this.getCurrentFocus().getWindowToken(), 0);
                 }
 
-                update_button.setVisibility(View.GONE);
+//                update_button.setVisibility(View.GONE);
+                update_button2.setVisibility(View.GONE);
                 cancel_button.setVisibility(View.GONE);
                 spinner.setVisibility(View.GONE);
                 brand_input.setFocusableInTouchMode(false);
@@ -384,8 +459,9 @@ public class UpdateActivity extends AppCompatActivity {
             confirmDialog();
         }
         if (item.getItemId() == R.id.edit_entry){
-            if (update_button.getVisibility() == View.GONE) {
-                update_button.setVisibility(View.VISIBLE);
+            if (cancel_button.getVisibility() == View.GONE) {
+//                update_button.setVisibility(View.VISIBLE);
+                update_button2.setVisibility(View.VISIBLE);
                 cancel_button.setVisibility(View.VISIBLE);
                 brand_input.setFocusableInTouchMode(true);
                 type_input.setFocusableInTouchMode(true);

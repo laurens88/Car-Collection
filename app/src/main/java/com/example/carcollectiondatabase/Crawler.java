@@ -105,6 +105,8 @@ public class Crawler {
             return "Unknown";
         }
         raw = raw.replaceAll("&quot;","\"");
+        raw = raw.replaceAll("&#x2B;", "+");
+
         return raw.replaceAll("km/u", "km/h");
     }
 

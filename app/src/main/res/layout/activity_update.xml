@@ -45,7 +45,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black_overlay"
-        android:digits="ABCDFGHJKLMNPQRSTVWXYZ-0123456789"
+        android:digits="ABCDEFGHJKLMNOPQRSTVWXYZ-0123456789"
         android:ems="10"
         android:hint="License Plate"
         android:inputType="textPersonName"
@@ -57,20 +57,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.736" />
 
-    <Button
-        android:id="@+id/update_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:text="Update"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
 
     <Button
         android:id="@+id/cancel_button"
@@ -80,8 +66,8 @@
         android:text="Cancel"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/update_entry"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintEnd_toStartOf="@+id/editPlate2"
+        app:layout_constraintHorizontal_bias="0.679"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.736" />
@@ -100,7 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.18"
-        android:backgroundTint="@color/black_overlay"/>
+        android:backgroundTint="@color/black_overlay" />
 
     <EditText
         android:id="@+id/editPrice2"
@@ -342,5 +328,18 @@
         android:text="Note"
         app:layout_constraintBottom_toTopOf="@+id/editNote"
         app:layout_constraintStart_toStartOf="@+id/editNote" />
+
+    <include
+        android:id="@+id/update_button"
+        layout="@layout/update_button"
+        android:layout_width="99dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.735" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

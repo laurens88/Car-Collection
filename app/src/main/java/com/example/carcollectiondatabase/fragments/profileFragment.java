@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,6 +97,11 @@ public class profileFragment extends Fragment {
 
     @Override
     public void onResume() {
+        if (getActivity().getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
+
         DatabaseHelper dbhelper = new DatabaseHelper(getContext());
         int colors = Integer.parseInt(dbhelper.getDistinctColors().get(0));
         colorful.setProgress(Math.min(colors, 13));
