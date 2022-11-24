@@ -161,7 +161,7 @@ public class Crawler {
                 if (line.contains("<p>Merk, model, kleur en meer</p>")){
                     start = line_counter;
                     brand = start+14;
-                    type = brand + 12;
+                    type = brand + 11;
                     edition = type + 10;
                     year = edition + 9;
                     color = year + 34;

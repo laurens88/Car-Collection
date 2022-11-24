@@ -110,15 +110,17 @@ public class DisplayActivity extends AppCompatActivity {
             }
 
         }
-
         if (dash_count == 1){
             if (formattedPlate.charAt(2)=='-') {
                 formattedPlate = formattedPlate.substring(0, 5) + "-" + formattedPlate.substring(5);
             }
             else{
                 formattedPlate = formattedPlate.substring(0, 2) + "-" + formattedPlate.substring(2);
+                System.out.println(formattedPlate);
             }
         }
+
+
 
         return formattedPlate;
     }
