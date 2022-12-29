@@ -144,6 +144,10 @@ public class Crawler {
             BufferedReader in = new BufferedReader(new InputStreamReader(url_object.openStream()));
 
             String line;
+            boolean section1found = false;
+            boolean section2found = false;
+            boolean section3found = false;
+            boolean section4found = false;
 
             int line_counter = -1;
             int  brand, type, edition, price, year, color, acc, top, power, start, stop1, stop2, stop3;
@@ -158,7 +162,10 @@ public class Crawler {
             color = -1;
             while ((line = in.readLine()) != null) {
                 line_counter++;
+                System.out.println(line_counter +" " +line);
+
                 if (line.contains("<p>Merk, model, kleur en meer</p>")){
+                    section1found = true;
                     start = line_counter;
                     brand = start+14;
                     type = brand + 11;
@@ -166,19 +173,57 @@ public class Crawler {
                     year = edition + 9;
                     color = year + 34;
                 }
+                if (section1found){
+                    if (line.equals("        Merk")){
+                        brand = line_counter + 3;
+                    }
+                    if (line.equals("        Model")){
+                        type = line_counter + 3;
+                    }
+                    if (line.equals("        Uitvoering")){
+                        edition = line_counter + 3;
+                    }
+                    if (line.equals("        Bouwjaar")){
+                        year = line_counter + 3;
+                    }
+                    if (line.equals("        Kleur")){
+                        color = line_counter + 3;
+                    }
+                }
                 if (line.contains("<p>Waarde-indicatie, onderhoud en meer</p>")){
+                    section2found = true;
                     stop1 = line_counter;
                     acc = stop1+18;
                     top = acc+6;
                 }
+                if (section2found){
+                    if (line.equals("                    <h5>0-100 km/u</h5>")){
+                        acc = line_counter + 1;
+                    }
+                    if (line.equals("                    <h5>Topsnelheid</h5>")){
+                        top = line_counter + 1;
+                    }
+                }
                 if (line.contains("<p>Exacte waarde, belasting en bijtelling</p>")){
+                    section3found = true;
                     stop2 = line_counter;
                     price = stop2 + 16;
                 }
+                if (section3found){
+                    if (line.equals("        Nieuwprijs")){
+                        price = line_counter + 3;
+                    }
+                }
 
                 if (line.contains("<p>Vermogen, snelheid, gewicht en meer</p>")){
+                    section4found = true;
                     stop3 = line_counter;
                     power = stop3 + 52;
+                }
+                if (section4found){
+                    if (line.equals("        Vermogen")){
+                        power = line_counter + 3;
+                    }
                 }
                 if (line.contains("sneller of meer PK")){
                     data.add(clean_rank(line));
