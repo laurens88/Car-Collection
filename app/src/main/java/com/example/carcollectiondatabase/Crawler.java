@@ -162,7 +162,7 @@ public class Crawler {
             color = -1;
             while ((line = in.readLine()) != null) {
                 line_counter++;
-                System.out.println(line_counter +" " +line);
+//                System.out.println(line_counter +" " +line);
 
                 if (line.contains("<p>Merk, model, kleur en meer</p>")){
                     section1found = true;
