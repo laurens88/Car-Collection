@@ -1,3 +1,7 @@
+<p align="right">
+  <img src="carcollectionlogo.webp" alt="Car Collection Database Logo" width="200"/>
+</p>
+
 Car Collection
 =======================
 
