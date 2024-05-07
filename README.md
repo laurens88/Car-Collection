@@ -15,6 +15,11 @@ Features
 *   **User Engagement**: Discover fun advancements designed to motivate users to collect and explore app entries. Perfect for car enthusiasts looking to add a gamified twist to their passion.
 *   **Seamless Interface**: Enjoy a user-friendly interface that makes navigation and data retrieval a breeze.
 
+Media
+--------
+
+
+
 Getting Started
 ---------------
 
