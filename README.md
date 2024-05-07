@@ -17,6 +17,11 @@ Features
 
 Media
 --------
+<p align="center">
+  <img src="media/IMG-123.gif" width="30%" />
+  <img src="media/IMG-4.jpg" width="30%" />
+  <img src="media/IMG-5.jpg" width="30%" />
+</p>
 
 
 
