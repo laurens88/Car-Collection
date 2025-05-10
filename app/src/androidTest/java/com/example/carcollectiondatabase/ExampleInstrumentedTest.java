@@ -1,4 +1,4 @@
-package com.example.carcollectiondatabase;
+package com.example.newcarcollection;
 
 import android.content.Context;
 

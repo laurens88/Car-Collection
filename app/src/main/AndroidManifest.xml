@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.carcollectiondatabase" >
+    package="com.laurens.newcarcollection" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+
 
     <application
         android:allowBackup="true"
@@ -16,19 +20,19 @@
         android:theme="@style/Theme.red"
         tools:targetApi="31" >
         <activity
-            android:name=".DisplayActivity"
+            android:name="com.example.newcarcollection.DisplayActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName="com.example.newcarcollection.MainActivity"/>
         <activity
-            android:name=".UpdateActivity"
+            android:name="com.example.newcarcollection.UpdateActivity"
             android:exported="false"/>
         <activity
-            android:name=".AddActivity"
+            android:name="com.example.newcarcollection.AddActivity"
             android:exported="false"
             android:label="Add car"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.example.newcarcollection.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.newcarcollection.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
